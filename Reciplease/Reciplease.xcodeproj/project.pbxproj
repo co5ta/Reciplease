@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		22536E8F241B843C00B15DC2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22536E8E241B843C00B15DC2 /* AppDelegate.swift */; };
 		22536E91241B843C00B15DC2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22536E90241B843C00B15DC2 /* SceneDelegate.swift */; };
-		22536E93241B843C00B15DC2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22536E92241B843C00B15DC2 /* ViewController.swift */; };
 		22536E99241B843C00B15DC2 /* Reciplease.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 22536E97241B843C00B15DC2 /* Reciplease.xcdatamodeld */; };
 		22536E9B241B844100B15DC2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22536E9A241B844100B15DC2 /* Assets.xcassets */; };
 		22536E9E241B844100B15DC2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22536E9C241B844100B15DC2 /* LaunchScreen.storyboard */; };
@@ -24,7 +23,6 @@
 		22536E8B241B843C00B15DC2 /* Reciplease.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Reciplease.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22536E8E241B843C00B15DC2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		22536E90241B843C00B15DC2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		22536E92241B843C00B15DC2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		22536E98241B843C00B15DC2 /* Reciplease.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Reciplease.xcdatamodel; sourceTree = "<group>"; };
 		22536E9A241B844100B15DC2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		22536E9D241B844100B15DC2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -66,20 +64,27 @@
 		22536E8D241B843C00B15DC2 /* Reciplease */ = {
 			isa = PBXGroup;
 			children = (
-				22536E8E241B843C00B15DC2 /* AppDelegate.swift */,
-				22536E90241B843C00B15DC2 /* SceneDelegate.swift */,
+				22536EAF241B8ED000B15DC2 /* SupportingFiles */,
 				22536EA5241B86BF00B15DC2 /* TabBarController.swift */,
 				22536EA7241B870C00B15DC2 /* SearchNavigationController.swift */,
 				22536EAD241B8BDF00B15DC2 /* SearchFormViewController.swift */,
 				22536EA9241B874300B15DC2 /* FavoritesNavigationController.swift */,
 				22536EAB241B879400B15DC2 /* FavoritesTableViewController.swift */,
-				22536E92241B843C00B15DC2 /* ViewController.swift */,
-				22536E9A241B844100B15DC2 /* Assets.xcassets */,
-				22536E9C241B844100B15DC2 /* LaunchScreen.storyboard */,
-				22536E9F241B844100B15DC2 /* Info.plist */,
 				22536E97241B843C00B15DC2 /* Reciplease.xcdatamodeld */,
 			);
 			path = Reciplease;
+			sourceTree = "<group>";
+		};
+		22536EAF241B8ED000B15DC2 /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				22536E8E241B843C00B15DC2 /* AppDelegate.swift */,
+				22536E90241B843C00B15DC2 /* SceneDelegate.swift */,
+				22536E9C241B844100B15DC2 /* LaunchScreen.storyboard */,
+				22536E9A241B844100B15DC2 /* Assets.xcassets */,
+				22536E9F241B844100B15DC2 /* Info.plist */,
+			);
+			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -153,7 +158,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				22536E99241B843C00B15DC2 /* Reciplease.xcdatamodeld in Sources */,
-				22536E93241B843C00B15DC2 /* ViewController.swift in Sources */,
 				22536EAE241B8BDF00B15DC2 /* SearchFormViewController.swift in Sources */,
 				22536EA8241B870C00B15DC2 /* SearchNavigationController.swift in Sources */,
 				22536EAC241B879400B15DC2 /* FavoritesTableViewController.swift in Sources */,
@@ -298,7 +302,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PQ32JTG8M8;
-				INFOPLIST_FILE = Reciplease/Info.plist;
+				INFOPLIST_FILE = Reciplease/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -316,7 +320,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PQ32JTG8M8;
-				INFOPLIST_FILE = Reciplease/Info.plist;
+				INFOPLIST_FILE = Reciplease/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
