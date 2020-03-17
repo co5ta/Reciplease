@@ -8,7 +8,7 @@
 
 import UIKit
 
-/// Controller of the Search Form Page
+/// Controller of the search form screen
 class SearchFormViewController: UIViewController {
     
     /// Section of the ingredient textField
@@ -187,6 +187,11 @@ extension SearchFormViewController {
             submitButton.bottomAnchor.constraint(equalTo: ingredientsSection.bottomAnchor, constant: -30),
         ])
     }
+}
+
+
+// MARK: - Actions
+extension SearchFormViewController {
     
     /** Add actions on views */
     func initActions() {
@@ -194,6 +199,7 @@ extension SearchFormViewController {
         view.addGestureRecognizer(tapView)
         
         addButton.addTarget(self, action: #selector(addIngredient), for: .touchUpInside)
+        submitButton.addTarget(self, action: #selector(goToSearchResultScreen), for: .touchUpInside)
     }
     
     /** Add an ingredient to the list */
@@ -208,5 +214,18 @@ extension SearchFormViewController {
     /** Hide the keyboard when needed */
     @objc func dismissKeyboard() {
         textField.resignFirstResponder()
+    }
+}
+
+
+// MARK: - Navigation
+extension SearchFormViewController {
+
+    /** Transition to search result screen */
+    @objc func goToSearchResultScreen() {
+        guard ingredients.isEmpty == false else { return }
+        let searchResultScreen = SearchResultViewController()
+        searchResultScreen.ingredients = ingredients.joined(separator: " ")
+        navigationController?.pushViewController(searchResultScreen, animated: true)
     }
 }
