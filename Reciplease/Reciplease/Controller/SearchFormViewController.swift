@@ -223,7 +223,7 @@ extension SearchFormViewController {
 
     /** Transition to search result screen */
     @objc func goToSearchResultScreen() {
-        guard ingredients.isEmpty == false else { return }
+        //guard ingredients.isEmpty == false else { return }
         let searchResultScreen = SearchResultViewController()
         searchResultScreen.ingredients = ingredients.joined(separator: " ")
         navigationController?.pushViewController(searchResultScreen, animated: true)
