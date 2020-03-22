@@ -13,17 +13,14 @@ struct Recipe: Decodable {
     
     /// Recipe title
     let label: String
-    
     /// Recipe image
     let image: String
-    
     /// Recipe url
     let url: String
-    
     /// Number of people
     let people: Float
     
-    /**  Init properties from json data */
+    ///  Init properties from json data
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let recipe = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .recipe)
@@ -35,8 +32,8 @@ struct Recipe: Decodable {
 }
 
 // MARK: - Coding Keys
-
 extension Recipe {
+    
     /// Give keys to use for encoding and decoding
     enum CodingKeys: String, CodingKey {
         case recipe, label, image, url, people = "yield"

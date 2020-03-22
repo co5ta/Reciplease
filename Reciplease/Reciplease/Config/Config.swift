@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 /// Gather the parameters of the application
 enum Config {
@@ -19,5 +20,13 @@ enum Config {
         static let app_id = "2e2b7a80"
         /// Key of the user of the API
         static let app_key = "e0af9c94daa4af7d0dc971bb15389075"
+    }
+    
+    /// Definition of main colors of the application
+    enum Color {
+        /// TabBar and NavigationBar
+        static let bar = UIColor.systemTeal
+        /// Buttons
+        static let button = UIColor.systemPink
     }
 }
