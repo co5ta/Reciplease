@@ -12,6 +12,9 @@ import UIKit
 /// Gather the parameters of the application
 enum Config {
     
+    /// Reuse identifer for recipe cell
+    static let RecipeCellReuseIdentifier = "RecipeCell"
+    
     /// Configuration of the recipe API
     enum API {
         /// URL of the API

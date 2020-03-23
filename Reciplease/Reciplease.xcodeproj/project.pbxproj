@@ -17,6 +17,7 @@
 		22536EAA241B874300B15DC2 /* FavoritesNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22536EA9241B874300B15DC2 /* FavoritesNavigationController.swift */; };
 		22536EAC241B879400B15DC2 /* FavoritesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22536EAB241B879400B15DC2 /* FavoritesTableViewController.swift */; };
 		22536EAE241B8BDF00B15DC2 /* SearchFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22536EAD241B8BDF00B15DC2 /* SearchFormViewController.swift */; };
+		2253DB8C2427A6AE005C2612 /* RecipeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2253DB8B2427A6AE005C2612 /* RecipeTableViewCell.swift */; };
 		2257190E242233ED00B138EB /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2257190D242233ED00B138EB /* Recipe.swift */; };
 		225719102422521400B138EB /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2257190F2422521400B138EB /* SearchResult.swift */; };
 		22577DB92420A19900C997CE /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22577DB82420A19900C997CE /* SearchResultViewController.swift */; };
@@ -40,6 +41,7 @@
 		22536EA9241B874300B15DC2 /* FavoritesNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesNavigationController.swift; sourceTree = "<group>"; };
 		22536EAB241B879400B15DC2 /* FavoritesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesTableViewController.swift; sourceTree = "<group>"; };
 		22536EAD241B8BDF00B15DC2 /* SearchFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFormViewController.swift; sourceTree = "<group>"; };
+		2253DB8B2427A6AE005C2612 /* RecipeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeTableViewCell.swift; sourceTree = "<group>"; };
 		2257190D242233ED00B138EB /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
 		2257190F2422521400B138EB /* SearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
 		22577DB82420A19900C997CE /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 		22577DBD2421596D00C997CE /* View */ = {
 			isa = PBXGroup;
 			children = (
+				2253DB8B2427A6AE005C2612 /* RecipeTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -283,6 +286,7 @@
 				22536E99241B843C00B15DC2 /* Reciplease.xcdatamodeld in Sources */,
 				22536EAE241B8BDF00B15DC2 /* SearchFormViewController.swift in Sources */,
 				22536EA8241B870C00B15DC2 /* SearchNavigationController.swift in Sources */,
+				2253DB8C2427A6AE005C2612 /* RecipeTableViewCell.swift in Sources */,
 				22536EAC241B879400B15DC2 /* FavoritesTableViewController.swift in Sources */,
 				22536EAA241B874300B15DC2 /* FavoritesNavigationController.swift in Sources */,
 				22536E8F241B843C00B15DC2 /* AppDelegate.swift in Sources */,
