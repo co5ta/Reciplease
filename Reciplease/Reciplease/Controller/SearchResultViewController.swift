@@ -70,10 +70,10 @@ extension SearchResultViewController {
     /// Add constraints to the components to display
     func activateConstraints() {
         NSLayoutConstraint.activate([
-            tableView.heightAnchor.constraint(equalTo: view.readableContentGuide.heightAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.readableContentGuide.bottomAnchor),
+            tableView.topAnchor.constraint(equalTo: view.readableContentGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.readableContentGuide.bottomAnchor),
             
             noRecipeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             noRecipeLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
@@ -117,7 +117,7 @@ extension SearchResultViewController: UITableViewDelegate {
     
     /// Asks the delegate for the height to use for a row in a specified location.
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 125
+        return 400
     }
 }
 
