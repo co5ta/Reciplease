@@ -11,23 +11,32 @@ import Foundation
 /// Recipe entity
 struct Recipe: Decodable {
     
-    /// Recipe title
+    /// Recipe namess
     let label: String
-    /// Recipe image
-    let image: String
+    /// Recipe image url
+    let pictureUrl: String
     /// Recipe url
     let url: String
     /// Number of people
     let people: Float
+    /// Diet labels
+    let dietLabels: [String]
+    /// Health labels
+    let healthLabels: [String]
+    /// Cautions
+    let cautions: [String]
     
     ///  Init properties from json data
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let recipe = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .recipe)
         label = try recipe.decode(String.self, forKey: .label)
-        image = try recipe.decode(String.self, forKey: .image)
+        pictureUrl = try recipe.decode(String.self, forKey: .pictureUrl)
         url = try recipe.decode(String.self, forKey: .url)
         people = try recipe.decode(Float.self, forKey: .people)
+        dietLabels = try recipe.decode([String].self, forKey: .dietLabels)
+        healthLabels = try recipe.decode([String].self, forKey: .healthLabels)
+        cautions = try recipe.decode([String].self, forKey: .cautions)
     }
 }
 
@@ -36,6 +45,6 @@ extension Recipe {
     
     /// Give keys to use for encoding and decoding
     enum CodingKeys: String, CodingKey {
-        case recipe, label, image, url, people = "yield"
+        case recipe, label, pictureUrl = "image", url, people = "yield", dietLabels, healthLabels, cautions
     }
 }
