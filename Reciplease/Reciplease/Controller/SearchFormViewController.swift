@@ -87,7 +87,7 @@ extension SearchFormViewController {
         addButton = UIButton(type: .system)
         addButton.setTitle("Add", for: .normal)
         addButton.tintColor = .white
-        addButton.backgroundColor = UIColor(red: 0.955, green: 0.19, blue: 0.573, alpha: 1)
+        addButton.backgroundColor = Config.Color.globalTintColor
         addButton.layer.cornerRadius = 5
         addButton.translatesAutoresizingMaskIntoConstraints = false
         textFieldSection.addSubview(addButton)
@@ -110,7 +110,7 @@ extension SearchFormViewController {
         ingredientsSection.addSubview(ingredientsTitle)
         
         clearButton = UIButton(type: .system)
-        clearButton.backgroundColor = .gray
+        clearButton.backgroundColor = Config.Color.cancelButton
         clearButton.setTitleColor(.white, for: .normal)
         clearButton.setTitle("Clear", for: .normal)
         clearButton.layer.cornerRadius = 5
@@ -126,7 +126,7 @@ extension SearchFormViewController {
         
         submitButton = UIButton(type: .system)
         submitButton.tintColor = .white
-        submitButton.backgroundColor = UIColor(red: 0.955, green: 0.19, blue: 0.573, alpha: 1)
+        submitButton.backgroundColor = Config.Color.globalTintColor
         submitButton.setTitle("Search for recipes", for: .normal)
         submitButton.layer.cornerRadius = 5
         submitButton.translatesAutoresizingMaskIntoConstraints = false

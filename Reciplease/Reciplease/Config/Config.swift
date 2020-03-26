@@ -27,9 +27,7 @@ enum Config {
     
     /// Definition of main colors of the application
     enum Color {
-        /// TabBar and NavigationBar
-        static let bar = UIColor.systemTeal
-        /// Buttons
-        static let button = UIColor.systemPink
+        static let cancelButton = UIColor.systemGray
+        static let globalTintColor = UIColor(red: 0.71, green: 0.512, blue: 0.197, alpha: 1)
     }
 }

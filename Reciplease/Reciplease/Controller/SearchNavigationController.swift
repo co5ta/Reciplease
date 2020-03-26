@@ -15,10 +15,6 @@ class SearchNavigationController: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        /// Navigation Bar Appareance
-        navigationBar.barTintColor = UIColor(red: 0.097, green: 0.759, blue: 0.934, alpha: 1)
-        navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        
         /// ViewControllers in the navigation
         let searchFormViewController = SearchFormViewController()
         viewControllers = [searchFormViewController]

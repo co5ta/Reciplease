@@ -50,6 +50,8 @@ extension SearchResultViewController {
     /// Setup the views
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = "Search"
+        navigationItem.backBarButtonItem?.tintColor = .red
         addViews()
         activateConstraints()
         configure()

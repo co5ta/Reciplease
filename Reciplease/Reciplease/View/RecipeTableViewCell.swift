@@ -48,12 +48,6 @@ class RecipeTableViewCell: UITableViewCell {
         return stackView
     }()
     
-    var dietStackView: LabelStackView = {
-        let stackView = LabelStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
-    
     var cautionsStackView: LabelStackView = {
         let stackView = LabelStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -79,8 +73,6 @@ class RecipeTableViewCell: UITableViewCell {
         addSubview(picture)
         addSubview(titleLabel)
         addSubview(infosStackView)
-        //infosStackView.addArrangedSubview(titleLabel)
-        infosStackView.addArrangedSubview(dietStackView)
         infosStackView.addArrangedSubview(healthStackView)
         infosStackView.addArrangedSubview(cautionsStackView)
     }
@@ -106,9 +98,6 @@ class RecipeTableViewCell: UITableViewCell {
             healthStackView.leadingAnchor.constraint(equalTo: infosStackView.leadingAnchor),
             healthStackView.trailingAnchor.constraint(equalTo: infosStackView.trailingAnchor),
             
-            dietStackView.leadingAnchor.constraint(equalTo: infosStackView.leadingAnchor),
-            dietStackView.trailingAnchor.constraint(equalTo: infosStackView.trailingAnchor),
-            
             cautionsStackView.leadingAnchor.constraint(equalTo: infosStackView.leadingAnchor),
             cautionsStackView.trailingAnchor.constraint(equalTo: infosStackView.trailingAnchor),
         ])
@@ -120,8 +109,6 @@ class RecipeTableViewCell: UITableViewCell {
         titleLabel.text = recipe.label
         healthStackView.picto.image = UIImage(named: "heart")
         healthStackView.labels.text = recipe.healthLabels.joined(separator: " | ")
-        dietStackView.picto.image = UIImage(named: "weight")
-        dietStackView.labels.text = recipe.dietLabels.joined(separator: " | ")
         cautionsStackView.picto.image = UIImage(named: "warning")
         cautionsStackView.labels.text = recipe.cautions.joined(separator: " | ")
     }
