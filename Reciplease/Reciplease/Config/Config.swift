@@ -9,11 +9,13 @@
 import Foundation
 import UIKit
 
-/// Gather the parameters of the application
+/// Gather main parameters of the application
 enum Config {
     
     /// Reuse identifer for recipe cell
-    static let RecipeCellReuseIdentifier = "RecipeCell"
+    static let reuseIdentifier = "RecipeCell"
+    /// Height of the recipe preview 
+    static let recipePreviewHeight: CGFloat = 400
     
     /// Configuration of the recipe API
     enum API {
@@ -27,7 +29,9 @@ enum Config {
     
     /// Definition of main colors of the application
     enum Color {
+        /// Color of cancel buttons
         static let cancelButton = UIColor.systemGray
+        /// Main custom color of the application
         static let globalTintColor = UIColor(red: 0.71, green: 0.512, blue: 0.197, alpha: 1)
     }
 }

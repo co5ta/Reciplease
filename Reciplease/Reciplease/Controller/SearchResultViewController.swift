@@ -13,89 +13,95 @@ class SearchResultViewController: UIViewController {
     
     /// Ingredients to search in recipes
     var ingredients: String?
-    
     /// List of recipes
     var recipes = [Recipe]()
-    
     /// Tableview to display the recipes
-    var tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.separatorColor = .white
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.isHidden = true
-        return tableView
-    }()
-    
+    var tableView = UITableView()
     /// Label to inform that no recipe was found
-    var noRecipeLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.preferredFont(forTextStyle: .headline)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.isHidden = true
-        return label
-    }()
-    
+    var noRecipeLabel = UILabel()
     /// Background query indicator
-    var activityindicator: UIActivityIndicatorView = {
-        let activityindicator = UIActivityIndicatorView()
-        activityindicator.startAnimating()
-        activityindicator.translatesAutoresizingMaskIntoConstraints = false
-        return activityindicator
-    }()
+    var activityindicator = UIActivityIndicatorView()
 }
 
-// MARK: - Life cycle
+// MARK: - Lifecycle
 extension SearchResultViewController {
     
-    /// Setup the views
+    /// Called after the controller's view is loaded into memory
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Search"
-        navigationItem.backBarButtonItem?.tintColor = .red
-        addViews()
-        activateConstraints()
-        configure()
+        setUpViews()
         getRecipes()
     }
 }
 
-// MARK: - UI Components
+// MARK: - Setup
 extension SearchResultViewController {
     
-    /// Add the components to display
-    func addViews() {
-        view.addSubview(tableView)
-        view.addSubview(noRecipeLabel)
-        view.addSubview(activityindicator)
-    }
-    
-    /// Add constraints to the components to display
-    func activateConstraints() {
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.readableContentGuide.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.readableContentGuide.bottomAnchor),
-            
-            noRecipeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            noRecipeLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            
-            activityindicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            activityindicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-        ])
-    }
-    
-    /// Cnnfigure the views
-    func configure() {
+    /// Sets up the views
+    func setUpViews() {
+        navigationItem.title = "Search"
         view.backgroundColor = UIColor.white
-        noRecipeLabel.text = "No recipe found"
-        tableView.register(RecipeTableViewCell.self, forCellReuseIdentifier: Config.RecipeCellReuseIdentifier)
+        setUpTableView()
+        setUpNoRecipeLabel()
+        setUpActivityIndicator()
+    }
+    
+    /// Sets up the table view
+    private func setUpTableView() {
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.register(RecipeTableViewCell.self, forCellReuseIdentifier: Config.reuseIdentifier)
+        tableView.separatorColor = .white
+        tableView.isHidden = true
+        view.addSubview(tableView)
+        setUpTableViewConstraints()
+    }
+    
+    /// Sets up the no recipe label
+    private func setUpNoRecipeLabel() {
+        noRecipeLabel.font = UIFont.preferredFont(forTextStyle: .headline)
+        noRecipeLabel.text = "No recipe found"
+        noRecipeLabel.isHidden = true
+        view.addSubview(noRecipeLabel)
+        setUpNoRecipeLabelConstraints()
+    }
+    
+    /// Sets up the activityIndicator
+    private func setUpActivityIndicator() {
+        activityindicator.startAnimating()
+        view.addSubview(activityindicator)
+        setUpActivityIndicatorConstraints()
     }
 }
 
-// MARK: - Data Source
+// MARK: - Constraints
+extension SearchResultViewController {
+    
+    /// Sets up constraints for the table view
+    private func setUpTableViewConstraints() {
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.topAnchor.constraint(equalTo: view.readableContentGuide.topAnchor).isActive = true
+        tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: view.readableContentGuide.bottomAnchor).isActive = true
+    }
+    
+    /// Sets up constraints for the no recipe label
+    private func setUpNoRecipeLabelConstraints() {
+        noRecipeLabel.translatesAutoresizingMaskIntoConstraints = false
+        noRecipeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        noRecipeLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+    }
+    
+    /// Sets up constraints for the activity indicator
+    private func setUpActivityIndicatorConstraints() {
+        activityindicator.translatesAutoresizingMaskIntoConstraints = false
+        activityindicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        activityindicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+    }
+}
+
+// MARK: - DataSource
 extension SearchResultViewController: UITableViewDataSource {
     
     /// Tells the data source to return the number of rows in a given section of a table view
@@ -105,11 +111,10 @@ extension SearchResultViewController: UITableViewDataSource {
     
     /// Asks the data source for a cell to insert in a particular location of the table view
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: Config.RecipeCellReuseIdentifier, for: indexPath) as? RecipeTableViewCell else {
-            return tableView.dequeueReusableCell(withIdentifier: Config.RecipeCellReuseIdentifier, for: indexPath)
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: Config.reuseIdentifier, for: indexPath)
+        guard let recipeCell = cell as? RecipeTableViewCell else { return cell }
         let recipe = recipes[indexPath.row]
-        cell.configure(with: recipe)
+        recipeCell.recipePreview.configure(with: recipe)
         return cell
     }
 }
@@ -119,14 +124,20 @@ extension SearchResultViewController: UITableViewDelegate {
     
     /// Asks the delegate for the height to use for a row in a specified location.
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 400
+        return Config.recipePreviewHeight
+    }
+    
+    /// Tells the delegate that the specified row is now selected
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let recipe = recipes[indexPath.row]
+        goToRecipeDetail(of: recipe)
     }
 }
 
-// MARK: - Request
+// MARK: - Data
 extension SearchResultViewController {
     
-    /// Launch the recipes search
+    /// Launchs the recipes search
     func getRecipes() {
         guard let ingredients = ingredients else { return }
         toggleActivityindicator(loading: true)
@@ -142,7 +153,7 @@ extension SearchResultViewController {
         }
     }
     
-    /// Toggle the activity controller to show request in progress
+    /// Toggles the activity controller to show request in progress
     func toggleActivityindicator(loading: Bool) {
         activityindicator.isHidden = !loading
         if loading == false {
@@ -152,3 +163,14 @@ extension SearchResultViewController {
     }
 }
 
+
+// MARK: - Navigation
+extension SearchResultViewController {
+    
+    /// Calls the recipe detail screen
+    func goToRecipeDetail(of recipe: Recipe) {
+        let recipeDetailVC = RecipeDetailViewController()
+        recipeDetailVC.recipe = recipe
+        navigationController?.pushViewController(recipeDetailVC, animated: true)
+    }
+}
