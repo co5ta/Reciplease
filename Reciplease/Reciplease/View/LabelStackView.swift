@@ -53,7 +53,7 @@ class LabelStackView: UIStackView {
     
     func activateContraints() {
         NSLayoutConstraint.activate([
-            picto.heightAnchor.constraint(equalToConstant: 20),
+            heightAnchor.constraint(equalToConstant: 20),
             picto.widthAnchor.constraint(equalTo: picto.heightAnchor)
         ])
     }

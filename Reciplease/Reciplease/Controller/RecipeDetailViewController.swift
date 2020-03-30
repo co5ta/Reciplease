@@ -11,10 +11,12 @@ import UIKit
 /// Controller of the recipe detail screen
 class RecipeDetailViewController: UIViewController {
     
-    /// Recipe object which contains the details to display
+    /// Recipe data
     var recipe: Recipe?
-    /// View which displays the main informations about  the recipe
-    var recipePreview = RecipePreview()
+    /// Scroll view which contains screen content
+    var scrollView = UIScrollView()
+    /// View which displays the recipe detail
+    var recipeDetail = RecipeDetailView()
 }
 
 // MARK: - Lifecycle
@@ -24,6 +26,7 @@ extension RecipeDetailViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpViews()
+        fetchData()
     }
 }
 
@@ -32,24 +35,55 @@ extension RecipeDetailViewController {
     
     /// Sets up the views
     func setUpViews() {
-        view.backgroundColor = .white
-        view.addSubview(recipePreview)
-        setUpConstraints()
-        
-        guard let recipe = recipe else { return }
-        recipePreview.configure(with: recipe)
+        view.backgroundColor = .systemGray6
+        setUpScrollView()
+        setUpRecipeDetail()
+    }
+    
+    /// Sets up the scroll view
+    private func setUpScrollView() {
+        //scrollView.alwaysBounceVertical = true
+        view.addSubview(scrollView)
+        setUpScrollViewConstraints()
+    }
+    
+    /// Sets up the recipe detail view
+    func setUpRecipeDetail() {
+        scrollView.addSubview(recipeDetail)
+        setUpRecipeDetailConstraints()
     }
 }
 
 // MARK: - Constraints
 extension RecipeDetailViewController {
     
-    /// Sets up the constraints
-    func setUpConstraints() {
-        recipePreview.translatesAutoresizingMaskIntoConstraints = false
-        recipePreview.heightAnchor.constraint(equalToConstant: Config.recipePreviewHeight).isActive = true
-        recipePreview.topAnchor.constraint(equalTo: view.readableContentGuide.topAnchor).isActive = true
-        recipePreview.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        recipePreview.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+    /// Sets up the scroll view constraints
+    func setUpScrollViewConstraints() {
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+    }
+    
+    /// Sets up the recipe detail view
+    func setUpRecipeDetailConstraints() {
+        recipeDetail.translatesAutoresizingMaskIntoConstraints = false
+        recipeDetail.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
+        recipeDetail.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
+        recipeDetail.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
+        recipeDetail.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
+        recipeDetail.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+    }
+    
+}
+
+// MARK: - Data
+extension RecipeDetailViewController {
+    
+    /// Fetchs the data of the recipe
+    func fetchData() {
+        guard let recipe = recipe else { return }
+        recipeDetail.fetchData(from: recipe)
     }
 }

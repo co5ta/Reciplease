@@ -33,6 +33,7 @@ extension RecipeTableViewCell {
     /// Sets up the views
     func setUpViews() {
         selectionStyle = .none
+        recipePreview.titleLabel.numberOfLines = 2
         addSubview(recipePreview)
         setUpConstraints()
     }
@@ -48,5 +49,7 @@ extension RecipeTableViewCell {
         recipePreview.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         recipePreview.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         recipePreview.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        recipePreview.picture.heightAnchor.constraint(equalTo:
+            heightAnchor, multiplier: 0.5).isActive = true
     }
 }

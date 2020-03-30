@@ -114,7 +114,7 @@ extension SearchResultViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: Config.reuseIdentifier, for: indexPath)
         guard let recipeCell = cell as? RecipeTableViewCell else { return cell }
         let recipe = recipes[indexPath.row]
-        recipeCell.recipePreview.configure(with: recipe)
+        recipeCell.recipePreview.fetchData(with: recipe)
         return cell
     }
 }
