@@ -17,12 +17,10 @@ class RecipeDetailView: UIView {
     var recipePreview = RecipePreview()
     /// Title before ingredients list
     var ingredientsTitleLabel = UILabel()
-    /// Ingredients list container
-    var ingredientsContainer = UIView()
     /// Ingredients list
     var ingredientsTextView = UITextView()
     /// Button to show the recipe directions
-    var showRecipeButton = UIButton()
+    var getDirectionsButton = UIButton()
     
 
     /// /// Initializes with frame to init view from code
@@ -44,9 +42,8 @@ extension RecipeDetailView {
     func setUpViews() {
         setUpRecipePreview()
         setUpIngredientsTitleLabel()
-        setUpIngredientsContainer()
         setUpIngredientsTextView()
-        setUpShowRecipeButton()
+        setUpGetDirectionsButton()
     }
     
     /// Sets up the recipe preview
@@ -59,21 +56,15 @@ extension RecipeDetailView {
     /// Sets up the ingredients title label
     private func setUpIngredientsTitleLabel() {
         addSubview(ingredientsTitleLabel)
-        ingredientsTitleLabel.font = UIFont.preferredFont(forTextStyle: .title2)
+        ingredientsTitleLabel.font = UIFont.preferredFont(forTextStyle: .title3)
         ingredientsTitleLabel.text = "Ingredients:"
         ingredientsTitleLabel.textColor = Config.Color.globalTintColor
         setUpIngredientsTitleLabelConstraints()
     }
     
-    /// Sets up the ingredients list container
-    private func setUpIngredientsContainer() {
-        addSubview(ingredientsContainer)
-        setUpIngredientsContainerConstraints()
-    }
-    
     /// Sets up the ingredients list view
     private func setUpIngredientsTextView() {
-        ingredientsContainer.addSubview(ingredientsTextView)
+        addSubview(ingredientsTextView)
         ingredientsTextView.font = UIFont.preferredFont(forTextStyle: .body)
         ingredientsTextView.isScrollEnabled = false
         ingredientsTextView.isEditable = false
@@ -81,14 +72,14 @@ extension RecipeDetailView {
         setUpIngredientsTextViewConstraints()
     }
     
-    ///
-    private func setUpShowRecipeButton() {
-        ingredientsContainer.addSubview(showRecipeButton)
-        showRecipeButton.setTitle("Get directions", for: .normal)
-        showRecipeButton.tintColor = .white
-        showRecipeButton.backgroundColor = Config.Color.globalTintColor
-        showRecipeButton.layer.cornerRadius = 5
-        setUpShowRecipeButtonConstraints()
+    /// Sets up the get directions button
+    private func setUpGetDirectionsButton() {
+        addSubview(getDirectionsButton)
+        getDirectionsButton.setTitle("Get directions", for: .normal)
+        getDirectionsButton.tintColor = .white
+        getDirectionsButton.backgroundColor = Config.Color.globalTintColor
+        getDirectionsButton.layer.cornerRadius = 5
+        setUpGetDirectionsButtonConstraints()
     }
 }
 
@@ -98,72 +89,50 @@ extension RecipeDetailView {
     /// Sets up the constraints of the recipe preview
     private func setUpRecipePreviewConstraints() {
         recipePreview.translatesAutoresizingMaskIntoConstraints = false
-        //recipePreview.backgroundColor = .green
-        recipePreview.heightAnchor.constraint(equalToConstant:
-            Config.recipePreviewHeight).isActive = true
         recipePreview.topAnchor.constraint(equalTo:
             topAnchor).isActive = true
         recipePreview.leadingAnchor.constraint(equalTo:
             leadingAnchor).isActive = true
         recipePreview.trailingAnchor.constraint(equalTo:
             trailingAnchor).isActive = true
-        recipePreview.picture.heightAnchor.constraint(equalTo:
-            recipePreview.heightAnchor, multiplier: 0.5).isActive = true
-//        recipePreview.picture.heightAnchor.constraint(equalToConstant:
-//            Config.recipePreviewHeight).isActive = true
-//        recipePreview.infosStackView.bottomAnchor.constraint(equalTo:
-//            recipePreview.bottomAnchor).isActive = true
-//
+        recipePreview.picture.heightAnchor.constraint(equalToConstant:
+            (UIScreen.main.bounds.height/2.5)).isActive = true
     }
     
     /// Sets up the constraints of ingredients title label
     private func setUpIngredientsTitleLabelConstraints() {
         ingredientsTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        ingredientsTitleLabel.topAnchor.constraint(equalToSystemSpacingBelow:
-            recipePreview.bottomAnchor, multiplier: 4).isActive = true
+       recipePreview.bottomAnchor.constraint(equalToSystemSpacingBelow:
+            ingredientsTitleLabel.bottomAnchor, multiplier: 1).isActive = true
         ingredientsTitleLabel.leadingAnchor.constraint(equalToSystemSpacingAfter:
             leadingAnchor, multiplier: 1).isActive = true
         trailingAnchor.constraint(equalToSystemSpacingAfter:
             ingredientsTitleLabel.trailingAnchor, multiplier: 1).isActive = true
     }
     
-    /// Sets up the constraints of the ingredients list container
-    private func setUpIngredientsContainerConstraints() {
-        ingredientsContainer.translatesAutoresizingMaskIntoConstraints = false
-        ingredientsContainer.topAnchor.constraint(equalToSystemSpacingBelow:
-            ingredientsTitleLabel.bottomAnchor, multiplier: 1).isActive = true
-        ingredientsContainer.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        trailingAnchor.constraint(equalTo: ingredientsContainer.trailingAnchor).isActive = true
-        bottomAnchor.constraint(equalTo: ingredientsContainer.bottomAnchor).isActive = true
-    }
-    
     /// Sets up the constraints of the ingredients list
     private func setUpIngredientsTextViewConstraints() {
         ingredientsTextView.translatesAutoresizingMaskIntoConstraints = false
         ingredientsTextView.topAnchor.constraint(equalToSystemSpacingBelow:
-            ingredientsContainer.topAnchor, multiplier: 1).isActive = true
+            ingredientsTitleLabel.bottomAnchor, multiplier: 2).isActive = true
         ingredientsTextView.leadingAnchor.constraint(equalToSystemSpacingAfter:
-            ingredientsContainer.leadingAnchor, multiplier: 1).isActive = true
-        ingredientsContainer.trailingAnchor.constraint(equalToSystemSpacingAfter:
+            leadingAnchor, multiplier: 1).isActive = true
+        trailingAnchor.constraint(equalToSystemSpacingAfter:
             ingredientsTextView.trailingAnchor, multiplier: 1).isActive = true
-//        ingredientsContainer.bottomAnchor.constraint(equalToSystemSpacingBelow:
-//            ingredientsTextView.bottomAnchor, multiplier: 2).isActive = true
     }
     
-    /// Sets up the constraints of the button which show the recipe
-    private func setUpShowRecipeButtonConstraints() {
-        showRecipeButton.translatesAutoresizingMaskIntoConstraints = false
-        showRecipeButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        showRecipeButton.topAnchor.constraint(greaterThanOrEqualToSystemSpacingBelow:
+    /// Sets up the constraints of the get directions button
+    private func setUpGetDirectionsButtonConstraints() {
+        getDirectionsButton.translatesAutoresizingMaskIntoConstraints = false
+        getDirectionsButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        getDirectionsButton.topAnchor.constraint(greaterThanOrEqualToSystemSpacingBelow:
             ingredientsTextView.bottomAnchor, multiplier: 5).isActive = true
-        showRecipeButton.leadingAnchor.constraint(equalToSystemSpacingAfter:
+        getDirectionsButton.leadingAnchor.constraint(equalToSystemSpacingAfter:
             leadingAnchor, multiplier: 7).isActive = true
         trailingAnchor.constraint(equalToSystemSpacingAfter:
-            showRecipeButton.trailingAnchor, multiplier: 7).isActive = true
-        ingredientsContainer.bottomAnchor.constraint(equalToSystemSpacingBelow:
-            showRecipeButton.bottomAnchor, multiplier: 5).isActive = true
-//        bottomAnchor.constraint(equalToSystemSpacingBelow:
-//            showRecipeButton.bottomAnchor, multiplier: 3).isActive = true
+            getDirectionsButton.trailingAnchor, multiplier: 7).isActive = true
+        bottomAnchor.constraint(equalToSystemSpacingBelow:
+            getDirectionsButton.bottomAnchor, multiplier: 5).isActive = true
     }
 }
 
@@ -173,6 +142,20 @@ extension RecipeDetailView {
     /// Fetchs the recipe data
     func fetchData(from recipe: Recipe) {
         recipePreview.fetchData(with: recipe)
-        ingredientsTextView.text = recipe.ingredients.joined(separator: "\n- ")
+        formatIngredientsList(recipe: recipe)
+    }
+    
+    func formatIngredientsList(recipe: Recipe) {
+        let bullet = "•  "
+        let ingredients = recipe.ingredients.map { return bullet + $0 }
+        var attributes = [NSAttributedString.Key: Any]()
+        attributes[.font] = UIFont.preferredFont(forTextStyle: .body)
+        //attributes[.foregroundColor] = UIColor.black
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.headIndent = (bullet as NSString).size(withAttributes: attributes).width
+        paragraphStyle.paragraphSpacing = 7
+        attributes[.paragraphStyle] = paragraphStyle
+        let string = ingredients.joined(separator: "\n")
+        ingredientsTextView.attributedText = NSAttributedString(string: string, attributes: attributes)
     }
 }

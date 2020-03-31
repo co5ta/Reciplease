@@ -51,26 +51,26 @@ extension RecipePreview {
     
     /// Sets up the picture of the recipe
     func setUpPicture() {
+        addSubview(picture)
         picture.contentMode = .scaleAspectFill
         picture.clipsToBounds = true
-        addSubview(picture)
         setUpPictureConstraints()
     }
     
     /// Sets up the title of the recipe
     func setUpTitle() {
-        titleLabel.font = UIFont.preferredFont(forTextStyle: .title1)
         addSubview(titleLabel)
+        titleLabel.font = UIFont.preferredFont(forTextStyle: .title1)
         setUpTitleLabelConstraints()
     }
     
     /// Sets up the stack view for  all recipe labels
     func setUpInfosStackView() {
+        addSubview(infosStackView)
         infosStackView.axis = .vertical
         infosStackView.alignment = .leading
         infosStackView.distribution = .fill
         infosStackView.spacing = 5
-        addSubview(infosStackView)
         setUpInfosStackViewConstraints()
     }
     
@@ -120,12 +120,13 @@ extension RecipePreview {
             infosStackView.trailingAnchor, multiplier: 1).isActive = true
 //        infosStackView.bottomAnchor.constraint(equalTo:
 //            bottomAnchor).isActive = true
+        bottomAnchor.constraint(equalToSystemSpacingBelow:
+            infosStackView.bottomAnchor, multiplier: 9).isActive = true
     }
     
     /// Sets up constraints for the health stack view
     func setUpHealthStackViewConstraints() {
         healthStackView.translatesAutoresizingMaskIntoConstraints = false
-        healthStackView.heightAnchor.constraint(lessThanOrEqualToConstant: 50).isActive = true
         healthStackView.leadingAnchor.constraint(equalTo: infosStackView.leadingAnchor).isActive = true
         healthStackView.trailingAnchor.constraint(equalTo: infosStackView.trailingAnchor).isActive = true
     }
@@ -133,9 +134,10 @@ extension RecipePreview {
     /// Sets up constraints for the cautions stack view
     func setUpCautionsStackViewConstraints() {
         cautionsStackView.translatesAutoresizingMaskIntoConstraints = false
-        cautionsStackView.heightAnchor.constraint(lessThanOrEqualToConstant: 50).isActive = true
-        cautionsStackView.leadingAnchor.constraint(equalTo: infosStackView.leadingAnchor).isActive = true
-        cautionsStackView.trailingAnchor.constraint(equalTo: infosStackView.trailingAnchor).isActive = true
+        cautionsStackView.leadingAnchor.constraint(equalTo:
+            infosStackView.leadingAnchor).isActive = true
+        cautionsStackView.trailingAnchor.constraint(equalTo:
+            infosStackView.trailingAnchor).isActive = true
     }
 }
 
@@ -150,7 +152,7 @@ extension RecipePreview {
         fill(cautionsStackView, withPicto: "warning", andLabels: recipe.cautionLabels)
     }
     
-    /// Fill a label stackview or remove it if no data available
+    /// Fills a label stackview or remove it if no data available
     func fill(_ stackView: LabelStackView, withPicto picto: String, andLabels labels: [String]) {
         if labels.isEmpty {
             stackView.removeFromSuperview()
