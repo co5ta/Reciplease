@@ -141,7 +141,7 @@ extension RecipeDetailView {
 
     /// Fetchs the recipe data
     func fetchData(from recipe: Recipe) {
-        recipePreview.fetchData(with: recipe)
+        recipePreview.recipe = recipe
         formatIngredientsList(recipe: recipe)
     }
     
@@ -150,7 +150,6 @@ extension RecipeDetailView {
         let ingredients = recipe.ingredients.map { return bullet + $0 }
         var attributes = [NSAttributedString.Key: Any]()
         attributes[.font] = UIFont.preferredFont(forTextStyle: .body)
-        //attributes[.foregroundColor] = UIColor.black
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.headIndent = (bullet as NSString).size(withAttributes: attributes).width
         paragraphStyle.paragraphSpacing = 7

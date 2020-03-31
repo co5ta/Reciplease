@@ -113,8 +113,7 @@ extension SearchResultViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Config.reuseIdentifier, for: indexPath)
         guard let recipeCell = cell as? RecipeTableViewCell else { return cell }
-        let recipe = recipes[indexPath.row]
-        recipeCell.recipePreview.fetchData(with: recipe)
+        recipeCell.recipePreview.recipe = recipes[indexPath.row]
         return cell
     }
 }
