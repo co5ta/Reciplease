@@ -45,13 +45,10 @@ extension RecipeTableViewCell {
     /// Sets up the constraints
     func setUpConstraints() {
         recipePreview.translatesAutoresizingMaskIntoConstraints = false
-        recipePreview.topAnchor.constraint(equalTo:
-            topAnchor).isActive = true
-        recipePreview.leadingAnchor.constraint(equalTo:
-            leadingAnchor).isActive = true
-        recipePreview.trailingAnchor.constraint(equalTo:
-            trailingAnchor).isActive = true
-        recipePreview.picture.heightAnchor.constraint(equalTo:
-            heightAnchor, multiplier: 0.6).isActive = true
+        recipePreview.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        recipePreview.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        recipePreview.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        recipePreview.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        recipePreview.picture.heightAnchor.constraint(equalToConstant: 250).isActive = true
     }
 }

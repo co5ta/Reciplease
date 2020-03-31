@@ -122,11 +122,6 @@ extension SearchResultViewController: UITableViewDataSource {
 // MARK: - Delegate
 extension SearchResultViewController: UITableViewDelegate {
     
-    /// Asks the delegate for the height to use for a row in a specified location.
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return Config.recipePreviewHeight
-    }
-    
     /// Tells the delegate that the specified row is now selected
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let recipe = recipes[indexPath.row]
