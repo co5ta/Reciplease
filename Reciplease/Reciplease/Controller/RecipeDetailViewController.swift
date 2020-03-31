@@ -38,11 +38,11 @@ extension RecipeDetailViewController {
         view.backgroundColor = .systemGray6
         setUpScrollView()
         setUpRecipeDetail()
+        setUpActions()
     }
     
     /// Sets up the scroll view
     private func setUpScrollView() {
-        //scrollView.alwaysBounceVertical = true
         view.addSubview(scrollView)
         setUpScrollViewConstraints()
     }
@@ -85,5 +85,26 @@ extension RecipeDetailViewController {
     func fetchData() {
         guard let recipe = recipe else { return }
         recipeDetail.fetchData(from: recipe)
+    }
+}
+
+// MARK: - Actions
+extension RecipeDetailViewController {
+    
+    /// Sets up actions on views
+    private func setUpActions() {
+        recipeDetail.getDirectionsButton.addTarget(
+            self,
+            action: #selector(goToRecipeDirections),
+            for: .touchUpInside)
+    }
+    
+    /// Calls the recipe directions view
+    @objc
+    private func goToRecipeDirections() {
+        guard let recipe = recipe, let recipeURL = URL(string: recipe.url) else { return }
+        let recipeDirectionsVC = RecipeDirectionsViewController()
+        recipeDirectionsVC.recipeURL = recipeURL
+        navigationController?.pushViewController(recipeDirectionsVC, animated: true)
     }
 }
