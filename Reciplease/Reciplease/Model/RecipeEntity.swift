@@ -12,8 +12,10 @@ import CoreData
 /// An object that manage recipe data for core data
 class RecipeEntity: NSManagedObject {
     
+    /// List of all stored recipes
     static var list: [Recipe] = []
     
+    /// Loads all stored recipes
     static func loadAll() -> [Recipe] {
         let request: NSFetchRequest<RecipeEntity> = RecipeEntity.fetchRequest()
         guard let recipeEntities = try? AppDelegate.viewContext.fetch(request) else { return [] }
@@ -35,6 +37,7 @@ class RecipeEntity: NSManagedObject {
         return recipes
     }
     
+    /// Saves a recipe added in favorites
     static func save(recipe: Recipe) {
         let recipeEntity = RecipeEntity(context: AppDelegate.viewContext)
         recipeEntity.title = recipe.title
@@ -47,6 +50,7 @@ class RecipeEntity: NSManagedObject {
         try? AppDelegate.viewContext.save()
     }
     
+    /// Deletes a recipe from favorites
     static func delete(recipe: Recipe) {
         let fetchRequest: NSFetchRequest<RecipeEntity> = RecipeEntity.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "title == %@", recipe.title)
