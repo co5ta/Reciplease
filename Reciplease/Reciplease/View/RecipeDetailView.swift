@@ -12,7 +12,9 @@ import UIKit
 class RecipeDetailView: UIView {
     
     /// Recipe data
-    var recipe: Recipe?
+    var recipe: Recipe? {
+        didSet { setUpData() }
+    }
     /// Recipe preview content
     var recipePreview = RecipePreview()
     /// Title before ingredients list
@@ -58,7 +60,7 @@ extension RecipeDetailView {
         addSubview(ingredientsTitleLabel)
         ingredientsTitleLabel.font = UIFont.preferredFont(forTextStyle: .title3)
         ingredientsTitleLabel.text = "Ingredients:"
-        ingredientsTitleLabel.textColor = Config.Color.globalTintColor
+        ingredientsTitleLabel.textColor = Config.globalTintColor
         setUpIngredientsTitleLabelConstraints()
     }
     
@@ -77,7 +79,7 @@ extension RecipeDetailView {
         addSubview(getDirectionsButton)
         getDirectionsButton.setTitle("Get directions", for: .normal)
         getDirectionsButton.tintColor = .white
-        getDirectionsButton.backgroundColor = Config.Color.globalTintColor
+        getDirectionsButton.backgroundColor = Config.globalTintColor
         getDirectionsButton.layer.cornerRadius = 5
         setUpGetDirectionsButtonConstraints()
     }
@@ -140,11 +142,13 @@ extension RecipeDetailView {
 extension RecipeDetailView {
 
     /// Fetchs the recipe data
-    func fetchData(from recipe: Recipe) {
+    func setUpData() {
+        guard let recipe = recipe else { return }
         recipePreview.recipe = recipe
         formatIngredientsList(recipe: recipe)
     }
     
+    /// Fortmats the ingredients list with bullets
     func formatIngredientsList(recipe: Recipe) {
         let bullet = "•  "
         let ingredients = recipe.ingredients.map { return bullet + $0 }

@@ -129,8 +129,10 @@ extension RecipePreview {
     /// Sets up constraints for the health stack view
     private func setUpHealthStackViewConstraints() {
         healthStackView.translatesAutoresizingMaskIntoConstraints = false
-        healthStackView.leadingAnchor.constraint(equalTo: infosStackView.leadingAnchor).isActive = true
-        healthStackView.trailingAnchor.constraint(equalTo: infosStackView.trailingAnchor).isActive = true
+        healthStackView.leadingAnchor.constraint(equalTo:
+            infosStackView.leadingAnchor).isActive = true
+        healthStackView.trailingAnchor.constraint(equalTo:
+            infosStackView.trailingAnchor).isActive = true
     }
     
     /// Sets up constraints for the cautions stack view

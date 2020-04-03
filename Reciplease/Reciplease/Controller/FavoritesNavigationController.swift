@@ -8,13 +8,17 @@
 
 import UIKit
 
+/// Controller of the navigation in  favorites  tab
 class FavoritesNavigationController: UINavigationController {
 
+    /// Root view controller
+    let favorites = SearchResultViewController()
+    
+    /// Called after the controller's view is loaded into memory
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let favoritesTableViewController = FavoritesTableViewController()
-        viewControllers = [favoritesTableViewController]
+        viewControllers.append(favorites)
+        RecipeEntity.list = RecipeEntity.loadAll()
     }
 
 }

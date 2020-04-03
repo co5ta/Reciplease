@@ -11,18 +11,16 @@ import UIKit
 /// Main Tab Bar of the application
 class TabBarController: UITabBarController {
 
+    /// Search Item
+    let search = SearchNavigationController()
+    /// Favorites item
+    let favorites = FavoritesNavigationController()
+    
     /** Init TabBbar features **/
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        /// Search Item
-        let search = SearchNavigationController()
         search.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 1)
-
-        /// Favorites item
-        let favorites = FavoritesNavigationController()
         favorites.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 2)
-        
         viewControllers = [search, favorites]
     }
 

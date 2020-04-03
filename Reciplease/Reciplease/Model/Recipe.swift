@@ -8,8 +8,8 @@
 
 import Foundation
 
-/// Recipe entity
-struct Recipe: Decodable {
+/// An object that stores  data of a recipe
+struct Recipe {
     
     /// Recipe namess
     let title: String
@@ -25,6 +25,10 @@ struct Recipe: Decodable {
     let cautionLabels: [String]
     /// Ingredients
     let ingredients: [String]
+}
+
+// MARK: - Decodable
+extension Recipe: Decodable {
     
     ///  Init properties from json data
     init(from decoder: Decoder) throws {
@@ -38,10 +42,6 @@ struct Recipe: Decodable {
         cautionLabels = try recipe.decode([String].self, forKey: .cautionLabels)
         ingredients = try recipe.decode([String].self, forKey: .ingredients)
     }
-}
-
-// MARK: - Coding Keys
-extension Recipe {
     
     /// Give keys to use for encoding and decoding
     enum CodingKeys: String, CodingKey {
@@ -55,3 +55,13 @@ extension Recipe {
         case ingredients = "ingredientLines"
     }
 }
+
+// MARK: - Equatable
+extension Recipe: Equatable {
+    
+    /// Compare equality between 2 Recipes
+    static func == (left: Recipe, right: Recipe) -> Bool {
+        return left.title == right.title && left.url == right.url
+    }
+}
+

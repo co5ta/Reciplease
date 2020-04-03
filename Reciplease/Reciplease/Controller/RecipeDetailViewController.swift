@@ -17,6 +17,8 @@ class RecipeDetailViewController: UIViewController {
     var scrollView = UIScrollView()
     /// View which displays the recipe detail
     var recipeDetail = RecipeDetailView()
+    /// The state favorite or not of the recipe
+    var isFavorite = false
 }
 
 // MARK: - Lifecycle
@@ -26,7 +28,7 @@ extension RecipeDetailViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpViews()
-        fetchData()
+        setUpData()
     }
 }
 
@@ -38,7 +40,25 @@ extension RecipeDetailViewController {
         view.backgroundColor = .systemGray6
         setUpScrollView()
         setUpRecipeDetail()
-        setUpActions()
+        setUpFavoriteState()
+        setupFavoriteButton()
+    }
+    
+    /// Sets up favorite state
+    func setUpFavoriteState() {
+        guard let recipe = recipe else { return }
+        if let _ = RecipeEntity.list.first(where: { $0 == recipe }) {
+            isFavorite = true
+        }
+    }
+    
+    /// Sets up the favorite button
+    private func setupFavoriteButton() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: isFavorite ? "star.fill" : "star"),
+            style: .plain,
+            target: self,
+            action: #selector(toggleFavorite))
     }
     
     /// Sets up the scroll view
@@ -51,6 +71,10 @@ extension RecipeDetailViewController {
     func setUpRecipeDetail() {
         scrollView.addSubview(recipeDetail)
         setUpRecipeDetailConstraints()
+        recipeDetail.getDirectionsButton.addTarget(
+            self,
+            action: #selector(goToRecipeDirections),
+            for: .touchUpInside)
     }
 }
 
@@ -78,26 +102,37 @@ extension RecipeDetailViewController {
     
 }
 
+// MARK: - Actions
+extension RecipeDetailViewController {
+    
+    /// Toggle the favorite state of the recipe
+    @objc
+    private func toggleFavorite() {
+        guard let recipe = recipe else { return }
+        if isFavorite {
+            RecipeEntity.delete(recipe: recipe)
+            RecipeEntity.list = RecipeEntity.list.filter({ $0 != recipe })
+        } else {
+            RecipeEntity.save(recipe: recipe)
+            RecipeEntity.list.append(recipe)
+        }
+        isFavorite.toggle()
+        setupFavoriteButton()
+    }
+}
+
 // MARK: - Data
 extension RecipeDetailViewController {
     
     /// Fetchs the data of the recipe
-    func fetchData() {
+    func setUpData() {
         guard let recipe = recipe else { return }
-        recipeDetail.fetchData(from: recipe)
+        recipeDetail.recipe = recipe
     }
 }
 
-// MARK: - Actions
+// MARK: - Navigation
 extension RecipeDetailViewController {
-    
-    /// Sets up actions on views
-    private func setUpActions() {
-        recipeDetail.getDirectionsButton.addTarget(
-            self,
-            action: #selector(goToRecipeDirections),
-            for: .touchUpInside)
-    }
     
     /// Calls the recipe directions view
     @objc

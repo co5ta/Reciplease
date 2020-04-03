@@ -29,8 +29,17 @@ extension SearchResultViewController {
     /// Called after the controller's view is loaded into memory
     override func viewDidLoad() {
         super.viewDidLoad()
+        if ingredients == nil {
+            tabBarController?.delegate = self
+        }
         setUpViews()
-        getRecipes()
+        getRecipesFromAPI()
+    }
+    
+    /// Notifies the view controller that its view is about to be added to a view hierarchy
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        getRecipesFromStorage()
     }
 }
 
@@ -101,7 +110,7 @@ extension SearchResultViewController {
     }
 }
 
-// MARK: - DataSource
+// MARK: - UITableViewDataSource
 extension SearchResultViewController: UITableViewDataSource {
     
     /// Tells the data source to return the number of rows in a given section of a table view
@@ -118,7 +127,7 @@ extension SearchResultViewController: UITableViewDataSource {
     }
 }
 
-// MARK: - Delegate
+// MARK: - UITableViewDelegate
 extension SearchResultViewController: UITableViewDelegate {
     
     /// Tells the delegate that the specified row is now selected
@@ -128,11 +137,26 @@ extension SearchResultViewController: UITableViewDelegate {
     }
 }
 
+// MARK: - UITabBarControllerDelegate
+extension SearchResultViewController: UITabBarControllerDelegate {
+    
+    /// Tells the delegate that the user selected an item in the tab bar
+    func tabBarController(
+        _ tabBarController: UITabBarController,
+        didSelect viewController: UIViewController)
+    {
+        guard let favoritesNav = viewController as? FavoritesNavigationController else { return }
+        guard favoritesNav.visibleViewController is SearchResultViewController else { return }
+        getRecipesFromStorage()
+        
+    }
+}
+
 // MARK: - Data
 extension SearchResultViewController {
     
-    /// Launchs the recipes search
-    func getRecipes() {
+    /// Asks to receive recipes from API
+    private func getRecipesFromAPI() {
         guard let ingredients = ingredients else { return }
         toggleActivityindicator(loading: true)
         RecipeService.shared.getRecipes(ingredients: ingredients) { [weak self] (response) in
@@ -145,12 +169,23 @@ extension SearchResultViewController {
             }
             self?.toggleActivityindicator(loading: false)
         }
+        
+    }
+    
+    /// Asks to receive favorite recipes from storage
+    private func getRecipesFromStorage() {
+        guard ingredients == nil else { return }
+        toggleActivityindicator(loading: true)
+        recipes = RecipeEntity.list
+        tableView.reloadData()
+        toggleActivityindicator(loading: false)
+        return
     }
     
     /// Toggles the activity controller to show request in progress
-    func toggleActivityindicator(loading: Bool) {
+    private func toggleActivityindicator(loading: Bool) {
         activityindicator.isHidden = !loading
-        if loading == false {
+        if activityindicator.isHidden {
             tableView.isHidden = recipes.isEmpty
             noRecipeLabel.isHidden = !recipes.isEmpty
         }

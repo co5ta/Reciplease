@@ -8,16 +8,16 @@
 
 import UIKit
 
-/// Navigation of the Search tab
+/// Controller of the navigation in search tab
 class SearchNavigationController: UINavigationController {
 
-    /** Init Search Navigation features **/
+    /// Root view controller
+    let searchFormViewController = SearchFormViewController()
+    
+    /// Called after the controller's view is loaded into memory
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        /// ViewControllers in the navigation
-        let searchFormViewController = SearchFormViewController()
-        viewControllers = [searchFormViewController]
+        viewControllers.append(searchFormViewController)
     }
 
 }
