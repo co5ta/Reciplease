@@ -12,7 +12,7 @@ import UIKit
 class FavoritesNavigationController: UINavigationController {
 
     /// Root view controller
-    let favorites = SearchResultViewController()
+    let favorites = RecipeListViewController()
     
     /// Called after the controller's view is loaded into memory
     override func viewDidLoad() {

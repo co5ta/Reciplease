@@ -1,5 +1,5 @@
 //
-//  SearchResultViewController.swift
+//  RecipeListViewController.swift
 //  Reciplease
 //
 //  Created by co5ta on 17/03/2020.
@@ -9,7 +9,7 @@
 import UIKit
 
 /// Controller of the search result screen
-class SearchResultViewController: UIViewController {
+class RecipeListViewController: UIViewController {
     
     /// Ingredients to search in recipes
     var ingredients: String?
@@ -24,7 +24,7 @@ class SearchResultViewController: UIViewController {
 }
 
 // MARK: - Lifecycle
-extension SearchResultViewController {
+extension RecipeListViewController {
     
     /// Called after the controller's view is loaded into memory
     override func viewDidLoad() {
@@ -44,7 +44,7 @@ extension SearchResultViewController {
 }
 
 // MARK: - Setup
-extension SearchResultViewController {
+extension RecipeListViewController {
     
     /// Sets up the views
     func setUpViews() {
@@ -84,7 +84,7 @@ extension SearchResultViewController {
 }
 
 // MARK: - Constraints
-extension SearchResultViewController {
+extension RecipeListViewController {
     
     /// Sets up constraints for the table view
     private func setUpTableViewConstraints() {
@@ -111,7 +111,7 @@ extension SearchResultViewController {
 }
 
 // MARK: - UITableViewDataSource
-extension SearchResultViewController: UITableViewDataSource {
+extension RecipeListViewController: UITableViewDataSource {
     
     /// Tells the data source to return the number of rows in a given section of a table view
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -128,7 +128,7 @@ extension SearchResultViewController: UITableViewDataSource {
 }
 
 // MARK: - UITableViewDelegate
-extension SearchResultViewController: UITableViewDelegate {
+extension RecipeListViewController: UITableViewDelegate {
     
     /// Tells the delegate that the specified row is now selected
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -138,7 +138,7 @@ extension SearchResultViewController: UITableViewDelegate {
 }
 
 // MARK: - UITabBarControllerDelegate
-extension SearchResultViewController: UITabBarControllerDelegate {
+extension RecipeListViewController: UITabBarControllerDelegate {
     
     /// Tells the delegate that the user selected an item in the tab bar
     func tabBarController(
@@ -146,14 +146,14 @@ extension SearchResultViewController: UITabBarControllerDelegate {
         didSelect viewController: UIViewController)
     {
         guard let favoritesNav = viewController as? FavoritesNavigationController else { return }
-        guard favoritesNav.visibleViewController is SearchResultViewController else { return }
+        guard favoritesNav.visibleViewController is RecipeListViewController else { return }
         getRecipesFromStorage()
         
     }
 }
 
 // MARK: - Data
-extension SearchResultViewController {
+extension RecipeListViewController {
     
     /// Asks to receive recipes from API
     private func getRecipesFromAPI() {
@@ -194,7 +194,7 @@ extension SearchResultViewController {
 
 
 // MARK: - Navigation
-extension SearchResultViewController {
+extension RecipeListViewController {
     
     /// Calls the recipe detail screen
     func goToRecipeDetail(of recipe: Recipe) {
