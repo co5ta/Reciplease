@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Nuke
 
 /// Controller of the search result screen
 class RecipeListViewController: UIViewController {
@@ -46,6 +47,7 @@ extension RecipeListViewController {
         super.viewDidLoad()
         if ingredients == nil { tabBarController?.delegate = self }
         setUpViews()
+        setUpImageCache()
         getRecipes()
     }
     
@@ -188,6 +190,17 @@ extension RecipeListViewController {
         }
     }
     
+    private func setUpImageCache() {
+        DataLoader.sharedUrlCache.diskCapacity = 0
+        let pipeline = ImagePipeline {
+            guard let bundleIdentifier = Bundle.main.bundleIdentifier else { return }
+            guard let dataCache = try? DataCache(name: bundleIdentifier) else { return }
+            dataCache.sizeLimit = 200 * 1024 * 1024
+            $0.dataCache = dataCache
+        }
+        ImagePipeline.shared = pipeline
+    }
+    
     /// Asks to receive recipes from API
     private func getRecipesFromAPI() {
         guard let ingredients = ingredients else { return }
@@ -198,7 +211,7 @@ extension RecipeListViewController {
             switch(response) {
             case .success(let searchResult):
                 self.recipes += searchResult.recipes
-                let indexPaths = (offset..<searchResult.recipes.count).map { IndexPath(row: $0, section: 0)}
+                let indexPaths = (offset..<self.recipes.count).map { IndexPath(row: $0, section: 0)}
                 self.tableView.insertRows(at: indexPaths, with: Config.tableViewRowAnimation)
                 self.toggleActivityindicator(loading: false)
             case .failure:
