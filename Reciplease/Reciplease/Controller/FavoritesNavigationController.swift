@@ -12,13 +12,13 @@ import UIKit
 class FavoritesNavigationController: UINavigationController {
 
     /// Root view controller
-    let favorites = RecipeListViewController()
+    let favoritesListVC = RecipeListViewController(mode: .favorites)
     
     /// Called after the controller's view is loaded into memory
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewControllers.append(favorites)
-        RecipeEntity.list = RecipeEntity.loadAll()
+        viewControllers.append(favoritesListVC)
+        Recipe.favorites = RecipeEntity.loadAll()
     }
 
 }

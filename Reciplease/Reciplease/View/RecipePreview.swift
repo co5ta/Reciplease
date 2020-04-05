@@ -12,10 +12,6 @@ import Nuke
 /// Gathers main informations about  the recipe
 class RecipePreview: UIView {
     
-    /// Recipe data
-    var recipe: Recipe? {
-        didSet { setUpViews() }
-    }
     /// Recipe image
     var picture = UIImageView()
     /// Recipe title
@@ -26,6 +22,8 @@ class RecipePreview: UIView {
     var healthStackView = LabelStackView()
     /// List of cautions labels
     var cautionsStackView = LabelStackView()
+    /// Recipe data
+    var recipe: Recipe? { didSet {setUpViews()} }
     
     /// Initializes with frame to init view from code
     override init(frame: CGRect) {
@@ -170,11 +168,8 @@ extension RecipePreview {
     /// Gets the picture of the recipe
     private func getPicture(from pictureUrl: String) {
         let placeholder = UIImage(named: "placeholder")
-        let options = ImageLoadingOptions(placeholder: placeholder, transition: .fadeIn(duration: 0.3))
-        if let url = URL(string: pictureUrl) {
-            Nuke.loadImage(with: url, options: options, into: picture)
-        } else {
-            picture.image = placeholder
-        }
+        let options = ImageLoadingOptions(placeholder: nil, transition: .fadeIn(duration: 0.3), failureImage: placeholder)
+        guard let url = URL(string: pictureUrl) else { picture.image = placeholder; return }
+        Nuke.loadImage(with: url, options: options, into: picture)
     }
 }

@@ -11,10 +11,6 @@ import UIKit
 ///
 class RecipeDetailView: UIView {
     
-    /// Recipe data
-    var recipe: Recipe? {
-        didSet { setUpData() }
-    }
     /// Recipe preview content
     var recipePreview = RecipePreview()
     /// Title before ingredients list
@@ -23,9 +19,11 @@ class RecipeDetailView: UIView {
     var ingredientsTextView = UITextView()
     /// Button to show the recipe directions
     var getDirectionsButton = UIButton()
+    /// Recipe data
+    var recipe: Recipe? { didSet {setUpData()} }
     
 
-    /// /// Initializes with frame to init view from code
+    /// Initializes with frame to init view from code
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpViews()

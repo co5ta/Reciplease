@@ -9,15 +9,15 @@
 import Foundation
 import UIKit
 
-/// Gather main parameters of the application
+/// Main parameters of the application
 enum Config {
     
     /// Reuse identifer for recipe cell
     static let reuseIdentifier = "RecipeCell"
-    /// Height of the recipe preview 
-    static let recipePreviewHeight: CGFloat = 400
-    ///
-    static let defaultButtonSize: CGFloat = 45
+    /// Table view row animation
+    static let tableViewRowAnimation: UITableView.RowAnimation = .automatic
+    /// Default height of buttons
+    static let defaultButtonHeight: CGFloat = 45
     /// Color of cancel buttons
     static let cancelButtonColor = UIColor.systemGray
     /// Main custom color of the application
@@ -31,5 +31,7 @@ enum Config {
         static let app_id = "2e2b7a80"
         /// Key of the user of the API
         static let app_key = "e0af9c94daa4af7d0dc971bb15389075"
+        /// Max number of recipes to fetch in a request
+        static let limit = 10
     }
 }

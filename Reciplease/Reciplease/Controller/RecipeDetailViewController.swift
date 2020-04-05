@@ -44,12 +44,11 @@ extension RecipeDetailViewController {
         setupFavoriteButton()
     }
     
-    /// Sets up favorite state
+    /// Sets favorite state as true if the recipe is in favorites
     func setUpFavoriteState() {
         guard let recipe = recipe else { return }
-        if let _ = RecipeEntity.list.first(where: { $0 == recipe }) {
-            isFavorite = true
-        }
+        guard let _ = Recipe.favorites.first(where: { $0 == recipe }) else { return }
+        isFavorite = true
     }
     
     /// Sets up the favorite button
@@ -105,19 +104,27 @@ extension RecipeDetailViewController {
 // MARK: - Actions
 extension RecipeDetailViewController {
     
-    /// Toggle the favorite state of the recipe
+    /// Toggles the favorite state of the recipe
     @objc
     private func toggleFavorite() {
-        guard let recipe = recipe else { return }
-        if isFavorite {
-            RecipeEntity.delete(recipe: recipe)
-            RecipeEntity.list = RecipeEntity.list.filter({ $0 != recipe })
-        } else {
-            RecipeEntity.save(recipe: recipe)
-            RecipeEntity.list.append(recipe)
-        }
         isFavorite.toggle()
         setupFavoriteButton()
+        isFavorite ? addToFavorites() : deleteFromFavorites()
+        Recipe.favoritesListEdited = true
+    }
+    
+    /// Adds the recipe to the favorites
+    private func addToFavorites() {
+        guard let recipe = recipe else { return }
+        RecipeEntity.save(recipe: recipe)
+        Recipe.favorites.append(recipe)
+    }
+    
+    /// Removes the recipe from the favorites
+    private func deleteFromFavorites() {
+        guard let recipe = recipe else { return }
+        RecipeEntity.delete(recipe: recipe)
+        Recipe.favorites = Recipe.favorites.filter({ $0 != recipe })
     }
 }
 

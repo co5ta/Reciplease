@@ -11,16 +11,31 @@ import UIKit
 /// Controller of the search result screen
 class RecipeListViewController: UIViewController {
     
-    /// Ingredients to search in recipes
-    var ingredients: String?
-    /// List of recipes
-    var recipes = [Recipe]()
     /// Tableview to display the recipes
     var tableView = UITableView()
     /// Label to inform that no recipe was found
     var noRecipeLabel = UILabel()
     /// Background query indicator
     var activityindicator = UIActivityIndicatorView()
+    /// Button to load more recipes
+    var loadMoreButton = UIButton()
+    /// View controller mode that indicates the context is search result by default
+    var mode: Mode = .searchResult
+    /// List of recipes
+    var recipes = [Recipe]()
+    /// Ingredients to search in recipes
+    var ingredients: String?
+    
+    /// Initializes  from code with mode
+    init(mode: Mode) {
+        self.mode = mode
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    /// Initializes from xib or storyboard with coder
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
 }
 
 // MARK: - Lifecycle
@@ -29,17 +44,16 @@ extension RecipeListViewController {
     /// Called after the controller's view is loaded into memory
     override func viewDidLoad() {
         super.viewDidLoad()
-        if ingredients == nil {
-            tabBarController?.delegate = self
-        }
+        if ingredients == nil { tabBarController?.delegate = self }
         setUpViews()
-        getRecipesFromAPI()
+        getRecipes()
     }
     
     /// Notifies the view controller that its view is about to be added to a view hierarchy
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        getRecipesFromStorage()
+        super.viewWillAppear(animated)
+        guard Recipe.favoritesListEdited else { return }
+        loadFavorites()
     }
 }
 
@@ -53,6 +67,7 @@ extension RecipeListViewController {
         setUpTableView()
         setUpNoRecipeLabel()
         setUpActivityIndicator()
+        setUpLoadMoreButton()
     }
     
     /// Sets up the table view
@@ -60,7 +75,7 @@ extension RecipeListViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(RecipeTableViewCell.self, forCellReuseIdentifier: Config.reuseIdentifier)
-        tableView.separatorColor = .white
+        tableView.separatorColor = .clear
         tableView.isHidden = true
         view.addSubview(tableView)
         setUpTableViewConstraints()
@@ -80,6 +95,11 @@ extension RecipeListViewController {
         activityindicator.startAnimating()
         view.addSubview(activityindicator)
         setUpActivityIndicatorConstraints()
+    }
+    
+    /// Sets up the load more button
+    private func setUpLoadMoreButton() {
+        loadMoreButton.setTitle("Load more", for: .normal)
     }
 }
 
@@ -135,60 +155,86 @@ extension RecipeListViewController: UITableViewDelegate {
         let recipe = recipes[indexPath.row]
         goToRecipeDetail(of: recipe)
     }
+    
+    /// Checks if the user reach the last cells to request next recipes
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard ingredients != nil else { return }
+        guard indexPath.row + 1 == tableView.numberOfRows(inSection: 0) else { return }
+        getRecipesFromAPI()
+    }
 }
 
 // MARK: - UITabBarControllerDelegate
 extension RecipeListViewController: UITabBarControllerDelegate {
     
     /// Tells the delegate that the user selected an item in the tab bar
-    func tabBarController(
-        _ tabBarController: UITabBarController,
-        didSelect viewController: UIViewController)
-    {
+    func tabBarController(_ tabBarController: UITabBarController,didSelect viewController: UIViewController) {
         guard let favoritesNav = viewController as? FavoritesNavigationController else { return }
         guard favoritesNav.visibleViewController is RecipeListViewController else { return }
-        getRecipesFromStorage()
-        
+        loadFavorites()
     }
 }
 
 // MARK: - Data
 extension RecipeListViewController {
     
+    /// Fetchs recipes from API or from storage depending the view controller mode
+    private func getRecipes() {
+        switch mode {
+        case .searchResult:
+            getRecipesFromAPI()
+        case .favorites:
+            loadFavorites()
+        }
+    }
+    
     /// Asks to receive recipes from API
     private func getRecipesFromAPI() {
         guard let ingredients = ingredients else { return }
         toggleActivityindicator(loading: true)
-        RecipeService.shared.getRecipes(ingredients: ingredients) { [weak self] (response) in
+        let offset = tableView.numberOfRows(inSection: 0)
+        RecipeService.shared.getRecipes(ingredients: ingredients, offset: offset) { [weak self] (response) in
+            guard let self = self else { return }
             switch(response) {
             case .success(let searchResult):
-                self?.recipes = searchResult.recipes
-                self?.tableView.reloadData()
+                self.recipes += searchResult.recipes
+                let indexPaths = (offset..<searchResult.recipes.count).map { IndexPath(row: $0, section: 0)}
+                self.tableView.insertRows(at: indexPaths, with: Config.tableViewRowAnimation)
+                self.toggleActivityindicator(loading: false)
             case .failure:
                 print("no result")
+                self.toggleActivityindicator(loading: false)
             }
-            self?.toggleActivityindicator(loading: false)
         }
-        
     }
     
     /// Asks to receive favorite recipes from storage
-    private func getRecipesFromStorage() {
-        guard ingredients == nil else { return }
+    private func loadFavorites() {
+        guard mode == .favorites else { return }
         toggleActivityindicator(loading: true)
-        recipes = RecipeEntity.list
+        recipes = Recipe.favorites
+        let lastVisibleIndexPath = tableView.indexPathsForVisibleRows
         tableView.reloadData()
         toggleActivityindicator(loading: false)
-        return
+        adjustCellsPosition(lastVisibleIndexPath: lastVisibleIndexPath)
+    }
+    
+    /// Adjusts cells position to prevent an automatic ugly scroll
+    private func adjustCellsPosition(lastVisibleIndexPath: [IndexPath]?) {
+        guard Recipe.favoritesListEdited else { return }
+        guard tableView.numberOfRows(inSection: 0) > 0 else { return }
+        guard let lastVisibleIndexPath = lastVisibleIndexPath, let indexPath = lastVisibleIndexPath.last else { return }
+        let row = indexPath.row == 0 ? indexPath.row : indexPath.row - 1
+        tableView.scrollToRow(at: IndexPath(row: row, section: 0), at: .none, animated: false)
+        Recipe.favoritesListEdited = false
     }
     
     /// Toggles the activity controller to show request in progress
     private func toggleActivityindicator(loading: Bool) {
         activityindicator.isHidden = !loading
-        if activityindicator.isHidden {
-            tableView.isHidden = recipes.isEmpty
-            noRecipeLabel.isHidden = !recipes.isEmpty
-        }
+        guard loading == false else { return }
+        tableView.isHidden = recipes.isEmpty
+        noRecipeLabel.isHidden = !recipes.isEmpty
     }
 }
 
@@ -201,5 +247,17 @@ extension RecipeListViewController {
         let recipeDetailVC = RecipeDetailViewController()
         recipeDetailVC.recipe = recipe
         navigationController?.pushViewController(recipeDetailVC, animated: true)
+    }
+}
+
+// MARK: - Enum
+extension RecipeListViewController {
+    
+    /// Indicates the context of the view controller
+    enum Mode {
+        /// The mode that displays the recipes from the search result
+        case searchResult
+        /// The mode that displays the recipes saved as favorites
+        case favorites
     }
 }

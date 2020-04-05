@@ -10,11 +10,12 @@ import Foundation
 import Alamofire
 
 /// Service to request the recipe API
-struct RecipeService {
+class RecipeService {
     
+    /// Parameters of the request
+    var parameters = [String: Any]()
     /// Shared default object
     static let shared = RecipeService()
-    
     /// Restriction to one unique object
     private init() {}
 }
@@ -23,9 +24,15 @@ struct RecipeService {
 // MARK: - Methods
 extension RecipeService {
     
-    /** Request the API to find some recipes */
-    func getRecipes(ingredients: String, callback: @escaping (Result<SearchResult, AFError>) -> Void) {
-        let parameters = ["app_id": Config.API.app_id, "app_key": Config.API.app_key, "q": "\(ingredients)"]
+    /// Request the API to find some recipes
+    func getRecipes(ingredients: String, offset: Int, callback: @escaping (Result<SearchResult, AFError>)-> Void) {
+         parameters = [
+            "app_id": Config.API.app_id,
+            "app_key": Config.API.app_key,
+            "q": "\(ingredients)",
+            "from": offset,
+            "to": offset + Config.API.limit
+        ]
         
         AF.request(Config.API.url, parameters: parameters)
             .validate()

@@ -25,6 +25,12 @@ struct Recipe {
     let cautionLabels: [String]
     /// Ingredients
     let ingredients: [String]
+    
+    
+    /// List of all stored recipes
+    static var favorites: [Recipe] = []
+    /// Indicates if the list of favorites has changed
+    static var favoritesListEdited = false
 }
 
 // MARK: - Decodable
@@ -65,3 +71,5 @@ extension Recipe: Equatable {
     }
 }
 
+// MARK: - Hashable
+extension Recipe: Hashable {}

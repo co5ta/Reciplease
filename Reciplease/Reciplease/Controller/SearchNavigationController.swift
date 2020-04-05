@@ -12,12 +12,12 @@ import UIKit
 class SearchNavigationController: UINavigationController {
 
     /// Root view controller
-    let searchFormViewController = SearchFormViewController()
+    let searchFormVC = SearchFormViewController()
     
     /// Called after the controller's view is loaded into memory
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewControllers.append(searchFormViewController)
+        viewControllers.append(searchFormVC)
     }
 
 }
