@@ -17,8 +17,6 @@ class RecipeListViewController: UIViewController {
     var noRecipeLabel = UILabel()
     /// Background query indicator
     var activityindicator = UIActivityIndicatorView()
-    /// Button to load more recipes
-    var loadMoreButton = UIButton()
     /// View controller mode that indicates the context is search result by default
     var mode: Mode = .searchResult
     /// List of recipes
@@ -67,7 +65,6 @@ extension RecipeListViewController {
         setUpTableView()
         setUpNoRecipeLabel()
         setUpActivityIndicator()
-        setUpLoadMoreButton()
     }
     
     /// Sets up the table view
@@ -95,11 +92,6 @@ extension RecipeListViewController {
         activityindicator.startAnimating()
         view.addSubview(activityindicator)
         setUpActivityIndicatorConstraints()
-    }
-    
-    /// Sets up the load more button
-    private func setUpLoadMoreButton() {
-        loadMoreButton.setTitle("Load more", for: .normal)
     }
 }
 
@@ -199,7 +191,7 @@ extension RecipeListViewController {
             case .success(let searchResult):
                 self.recipes += searchResult.recipes
                 let indexPaths = (offset..<self.recipes.count).map { IndexPath(row: $0, section: 0)}
-                self.tableView.insertRows(at: indexPaths, with: Config.tableViewRowAnimation)
+                self.tableView.insertRows(at: indexPaths, with: .bottom)
                 self.toggleActivityindicator(loading: false)
             case .failure:
                 print("no result")

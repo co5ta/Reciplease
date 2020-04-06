@@ -14,8 +14,6 @@ enum Config {
     
     /// Reuse identifer for recipe cell
     static let reuseIdentifier = "RecipeCell"
-    /// Table view row animation
-    static let tableViewRowAnimation: UITableView.RowAnimation = .automatic
     /// Default height of buttons
     static let defaultButtonHeight: CGFloat = 45
     /// Color of cancel buttons
