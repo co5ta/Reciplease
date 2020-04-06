@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2250A81F24338D42008366F6 /* RecipeDirectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2250A81E24338D42008366F6 /* RecipeDirectionsViewController.swift */; };
 		2252AF9324349608007AFC18 /* RecipeEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2252AF9224349608007AFC18 /* RecipeEntity.swift */; };
 		22536E8F241B843C00B15DC2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22536E8E241B843C00B15DC2 /* AppDelegate.swift */; };
 		22536E91241B843C00B15DC2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22536E90241B843C00B15DC2 /* SceneDelegate.swift */; };
@@ -34,7 +33,6 @@
 /* Begin PBXFileReference section */
 		1553F3875386853054423847 /* Pods_Reciplease.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Reciplease.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B1499013CBF8820AFE81589 /* Pods-Reciplease.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Reciplease.release.xcconfig"; path = "Target Support Files/Pods-Reciplease/Pods-Reciplease.release.xcconfig"; sourceTree = "<group>"; };
-		2250A81E24338D42008366F6 /* RecipeDirectionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDirectionsViewController.swift; sourceTree = "<group>"; };
 		2252AF9224349608007AFC18 /* RecipeEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeEntity.swift; sourceTree = "<group>"; };
 		22536E8B241B843C00B15DC2 /* Reciplease.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Reciplease.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22536E8E241B843C00B15DC2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -133,7 +131,6 @@
 				22536EAD241B8BDF00B15DC2 /* SearchFormViewController.swift */,
 				22577DB82420A19900C997CE /* RecipeListViewController.swift */,
 				22D611A4242D340A00B706D6 /* RecipeDetailViewController.swift */,
-				2250A81E24338D42008366F6 /* RecipeDirectionsViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -312,7 +309,6 @@
 				22536EA6241B86BF00B15DC2 /* TabBarController.swift in Sources */,
 				22577DBF24215B9500C997CE /* RecipeService.swift in Sources */,
 				22B094932425374000911C43 /* Config.swift in Sources */,
-				2250A81F24338D42008366F6 /* RecipeDirectionsViewController.swift in Sources */,
 				22536E91241B843C00B15DC2 /* SceneDelegate.swift in Sources */,
 				22577DB92420A19900C997CE /* RecipeListViewController.swift in Sources */,
 				225719102422521400B138EB /* SearchResult.swift in Sources */,

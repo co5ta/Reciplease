@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SafariServices
 
 /// Controller of the recipe detail screen
 class RecipeDetailViewController: UIViewController {
@@ -145,8 +146,7 @@ extension RecipeDetailViewController {
     @objc
     private func goToRecipeDirections() {
         guard let recipe = recipe, let recipeURL = URL(string: recipe.url) else { return }
-        let recipeDirectionsVC = RecipeDirectionsViewController()
-        recipeDirectionsVC.recipeURL = recipeURL
-        navigationController?.pushViewController(recipeDirectionsVC, animated: true)
+        let safariVC = SFSafariViewController(url: recipeURL)
+        present(safariVC, animated: true, completion: nil)
     }
 }
