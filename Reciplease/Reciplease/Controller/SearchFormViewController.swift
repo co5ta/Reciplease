@@ -51,7 +51,7 @@ extension SearchFormViewController {
     
     /// Sets up the views
     private func setUpViews() {
-        navigationItem.title = "Reciplease"
+        setUpNavigationItem()
         setUpRootView()
         setUpTextFieldSection()
         setUpTextFieldLabel()
@@ -63,6 +63,16 @@ extension SearchFormViewController {
         setUpIngredientsList()
         setUpClearButton()
         setUpSubmitButton()
+    }
+    
+    /// Sets up the navigation item
+    private func setUpNavigationItem() {
+        navigationItem.title = "Reciplease"
+        navigationItem.backBarButtonItem = UIBarButtonItem(
+            title: "",
+            style: .plain,
+            target: nil,
+            action: nil)
     }
     
     /// Sets up the root view

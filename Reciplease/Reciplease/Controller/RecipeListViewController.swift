@@ -59,7 +59,7 @@ extension RecipeListViewController {
     
     /// Sets up the views
     func setUpViews() {
-        navigationItem.title = "Search"
+        navigationItem.title = mode == .searchResult ? "Search" : "Favorites"
         view.backgroundColor = .systemBackground
         if mode == .favorites { tabBarController?.delegate = self }
         setUpTableView()
