@@ -15,11 +15,12 @@ enum Config {
     /// Reuse identifer for recipe cell
     static let reuseIdentifier = "RecipeCell"
     /// Default height of buttons
-    static let defaultButtonHeight: CGFloat = 45
+    static let buttonHeight: CGFloat = 45
     /// Color of cancel buttons
     static let cancelButtonColor = UIColor.systemGray
     /// Main custom color of the application
     static let globalTintColor = UIColor(red: 0.71, green: 0.512, blue: 0.197, alpha: 1)
+    static let spacing: CGFloat = 2.5
     
     /// Configuration of the recipe API
     enum API {

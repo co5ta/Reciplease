@@ -30,7 +30,7 @@ class SearchFormViewController: UIViewController {
     /// Button to clear the ingredients list
     var clearButton = UIButton(type: .system)
     /// Button to submit the form
-    var submitButton = UIButton()
+    var submitButton = UIButton(type: .system)
     /// Array of ingredients
     var ingredients = [String]()
 }
@@ -60,8 +60,8 @@ extension SearchFormViewController {
         setUpAddButton()
         setUpIngredientsSection()
         setUpIngredientsTitle()
-        setUpClearButton()
         setUpIngredientsList()
+        setUpClearButton()
         setUpSubmitButton()
     }
     
@@ -133,8 +133,17 @@ extension SearchFormViewController {
     private func setUpIngredientsTitle() {
         view.addSubview(ingredientsTitleLabel)
         ingredientsTitleLabel.text = "Your ingredients :"
-        ingredientsTitleLabel.font = UIFont.preferredFont(forTextStyle: .headline)
+        ingredientsTitleLabel.font = UIFont.preferredFont(forTextStyle: .title3)
         setUpIngredientsTitleConstraints()
+    }
+    
+    /// Sets up the ingredients list
+    private func setUpIngredientsList() {
+        view.addSubview(ingredientsList)
+        ingredientsList.font = UIFont.preferredFont(forTextStyle: .body)
+        ingredientsList.backgroundColor = .tertiarySystemBackground
+        ingredientsList.isSelectable = false
+        setUpIngredientsListConstraints()
     }
     
     /// Sets up the clear button
@@ -146,15 +155,6 @@ extension SearchFormViewController {
         clearButton.layer.cornerRadius = 5
         clearButton.addTarget(self, action: #selector(removeIngredients), for: .touchUpInside)
         setUpClearButtonConstraints()
-    }
-    
-    /// Sets up the ingredients list
-    private func setUpIngredientsList() {
-        view.addSubview(ingredientsList)
-        ingredientsList.font = UIFont.preferredFont(forTextStyle: .body)
-        ingredientsList.backgroundColor = .tertiarySystemBackground
-        ingredientsList.isSelectable = false
-        setUpIngredientsListConstraints()
     }
     
     /// Sets up the submit button
@@ -180,20 +180,16 @@ extension SearchFormViewController {
         textFieldView.translatesAutoresizingMaskIntoConstraints = false
         textFieldView.heightAnchor.constraint(
             equalTo: textFieldView.widthAnchor,
-            multiplier: 2/5)
-            .isActive = true
+            multiplier: 2/5).isActive = true
         textFieldView.topAnchor.constraint(
             equalToSystemSpacingBelow: view.readableContentGuide.topAnchor,
-            multiplier: 3)
-            .isActive = true
+            multiplier: 3).isActive = true
         textFieldView.leadingAnchor.constraint(
             equalToSystemSpacingAfter: view.leadingAnchor,
-            multiplier: 2)
-            .isActive = true
+            multiplier: 2).isActive = true
         view.trailingAnchor.constraint(
             equalToSystemSpacingAfter: textFieldView.trailingAnchor,
-            multiplier: 2)
-            .isActive = true
+            multiplier: 2).isActive = true
     }
     
     /// Sets up constraints for the text field label
@@ -201,11 +197,8 @@ extension SearchFormViewController {
         textFieldLabel.translatesAutoresizingMaskIntoConstraints = false
         textFieldLabel.topAnchor.constraint(
             equalToSystemSpacingBelow: textFieldView.topAnchor,
-            multiplier: 2)
-            .isActive = true
-        textFieldLabel.centerXAnchor.constraint(
-            equalTo: textFieldView.centerXAnchor)
-            .isActive = true
+            multiplier: 2).isActive = true
+        textFieldLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: textFieldView.leadingAnchor, multiplier: 2).isActive = true
     }
     
     /// Sets up constraints for the text field
@@ -213,52 +206,41 @@ extension SearchFormViewController {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.leadingAnchor.constraint(
             equalToSystemSpacingAfter: textFieldView.leadingAnchor,
-            multiplier: 2)
-            .isActive = true
+            multiplier: 2).isActive = true
     }
     
     /// Sets up constraints for the text field border
     private func setUpTextFieldBorderConstraints() {
         textFieldBorder.translatesAutoresizingMaskIntoConstraints = false
         textFieldBorder.heightAnchor.constraint(
-            equalToConstant: 1)
-            .isActive = true
+            equalToConstant: 1).isActive = true
         textFieldBorder.widthAnchor.constraint(
-            equalTo: textField.widthAnchor)
-            .isActive = true
+            equalTo: textField.widthAnchor).isActive = true
         textFieldBorder.centerXAnchor.constraint(
-            equalTo: textField.centerXAnchor)
-            .isActive = true
+            equalTo: textField.centerXAnchor).isActive = true
         textFieldBorder.topAnchor.constraint(
-            equalTo: textField.bottomAnchor)
-            .isActive = true
+            equalTo: textField.bottomAnchor).isActive = true
     }
     
     /// Sets up constraints for add button
     private func setUpAddButtonConstraints() {
         addButton.translatesAutoresizingMaskIntoConstraints = false
         addButton.heightAnchor.constraint(
-            equalToConstant: 40)
-            .isActive = true
+            equalToConstant: 40).isActive = true
         addButton.widthAnchor.constraint(
-            equalToConstant: 60)
-            .isActive = true
+            equalToConstant: 60).isActive = true
         textFieldView.trailingAnchor.constraint(
             equalToSystemSpacingAfter: addButton.trailingAnchor,
-            multiplier: 2)
-            .isActive = true
+            multiplier: 2).isActive = true
         addButton.leadingAnchor.constraint(
             equalToSystemSpacingAfter: textField.trailingAnchor,
-            multiplier: 2)
-            .isActive = true
+            multiplier: 2).isActive = true
         addButton.bottomAnchor.constraint(
             equalToSystemSpacingBelow: textFieldBorder.bottomAnchor,
-            multiplier: 0.1)
-            .isActive = true
+            multiplier: 0.1).isActive = true
         textFieldView.bottomAnchor.constraint(
             equalToSystemSpacingBelow: addButton.bottomAnchor,
-            multiplier: 2)
-            .isActive = true
+            multiplier: 2).isActive = true
         
     }
     
@@ -267,96 +249,73 @@ extension SearchFormViewController {
         ingredientsView.translatesAutoresizingMaskIntoConstraints = false
         ingredientsView.topAnchor.constraint(
             equalToSystemSpacingBelow: textFieldView.bottomAnchor,
-            multiplier: 3)
-            .isActive = true
+            multiplier: 3).isActive = true
         ingredientsView.leadingAnchor.constraint(
-            equalTo: textFieldView.leadingAnchor)
-            .isActive = true
+            equalTo: textFieldView.leadingAnchor).isActive = true
         ingredientsView.trailingAnchor.constraint(
-            equalTo: textFieldView.trailingAnchor)
-            .isActive = true
+            equalTo: textFieldView.trailingAnchor).isActive = true
         view.readableContentGuide.bottomAnchor.constraint(
             equalToSystemSpacingBelow: ingredientsView.bottomAnchor,
-            multiplier: 3)
-            .isActive = true
+            multiplier: 3).isActive = true
     }
     
     /// Sets up constraints for the ingredients title
     private func setUpIngredientsTitleConstraints() {
         ingredientsTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        ingredientsTitleLabel.topAnchor.constraint(
+            equalToSystemSpacingBelow: ingredientsView.topAnchor,
+            multiplier: 2).isActive = true
         ingredientsTitleLabel.leadingAnchor.constraint(
             equalToSystemSpacingAfter: ingredientsView.leadingAnchor,
-            multiplier: 2)
-            .isActive = true
-    }
-    
-    /// Sets up constraints for the clear button
-    private func setUpClearButtonConstraints() {
-        clearButton.translatesAutoresizingMaskIntoConstraints = false
-        clearButton.heightAnchor.constraint(
-            equalToConstant: 40)
-            .isActive = true
-        clearButton.widthAnchor.constraint(
-            equalToConstant: 60)
-            .isActive = true
-        clearButton.topAnchor.constraint(
-            equalToSystemSpacingBelow: ingredientsView.topAnchor,
-            multiplier: 2)
-            .isActive = true
-        clearButton.leadingAnchor.constraint(
-            equalToSystemSpacingAfter: ingredientsTitleLabel.trailingAnchor,
-            multiplier: 2)
-            .isActive = true
-        ingredientsView.trailingAnchor.constraint(
-            equalToSystemSpacingAfter: clearButton.trailingAnchor,
-            multiplier: 2)
-            .isActive = true
-        clearButton.bottomAnchor.constraint(
-            equalToSystemSpacingBelow: ingredientsTitleLabel.bottomAnchor,
-            multiplier: 1)
-            .isActive = true
+            multiplier: 2).isActive = true
     }
     
     /// Sets up constraints for the ingredients list
     private func setUpIngredientsListConstraints() {
         ingredientsList.translatesAutoresizingMaskIntoConstraints = false
         ingredientsList.topAnchor.constraint(
-            equalToSystemSpacingBelow: clearButton.bottomAnchor,
-            multiplier: 2)
-            .isActive = true
+            equalToSystemSpacingBelow: ingredientsTitleLabel.bottomAnchor,
+            multiplier: 2).isActive = true
         ingredientsList.leadingAnchor.constraint(
-            equalTo: ingredientsTitleLabel.leadingAnchor)
-            .isActive = true
-        ingredientsList.trailingAnchor.constraint(
-            equalTo: clearButton.trailingAnchor)
-            .isActive = true
+            equalTo: ingredientsTitleLabel.leadingAnchor).isActive = true
+        ingredientsView.trailingAnchor.constraint(
+            equalToSystemSpacingAfter: ingredientsList.trailingAnchor,
+            multiplier: 2).isActive = true
+    }
+    
+    /// Sets up constraints for the clear button
+    private func setUpClearButtonConstraints() {
+        clearButton.translatesAutoresizingMaskIntoConstraints = false
+        clearButton.heightAnchor.constraint(
+            equalToConstant: 50).isActive = true
+        clearButton.topAnchor.constraint(
+            equalToSystemSpacingBelow: ingredientsList.bottomAnchor,
+            multiplier: 2).isActive = true
+        clearButton.leadingAnchor.constraint(
+            equalToSystemSpacingAfter: ingredientsView.leadingAnchor,
+            multiplier: 2).isActive = true
+        ingredientsView.bottomAnchor.constraint(
+            equalToSystemSpacingBelow: clearButton.bottomAnchor,
+            multiplier: 2).isActive = true
     }
     
     /// Sets up constraints for the submit button
     private func setUpSubmitButtonConstraints() {
         submitButton.translatesAutoresizingMaskIntoConstraints = false
         submitButton.heightAnchor.constraint(
-            equalToConstant: 50)
-            .isActive = true
-        submitButton.centerXAnchor.constraint(
-            equalTo: ingredientsView.centerXAnchor)
-            .isActive = true
-        submitButton.topAnchor.constraint(
-            equalToSystemSpacingBelow: ingredientsList.bottomAnchor,
-            multiplier: 2)
-            .isActive = true
+            equalTo: clearButton.heightAnchor).isActive = true
+        submitButton.widthAnchor.constraint(
+            equalTo: clearButton.widthAnchor).isActive = true
         submitButton.leadingAnchor.constraint(
-            equalToSystemSpacingAfter: ingredientsView.leadingAnchor,
-            multiplier: 2)
-            .isActive = true
+            equalToSystemSpacingAfter: clearButton.trailingAnchor,
+            multiplier: 2).isActive = true
         ingredientsView.trailingAnchor.constraint(
             equalToSystemSpacingAfter: submitButton.trailingAnchor,
-            multiplier: 2)
-            .isActive = true
-        ingredientsView.bottomAnchor.constraint(
-            equalToSystemSpacingBelow: submitButton.bottomAnchor,
-            multiplier: 2)
-            .isActive = true
+            multiplier: 2).isActive = true
+        submitButton.bottomAnchor.constraint(
+            equalTo: clearButton.bottomAnchor).isActive = true
+        
+        
     }
 }
 
