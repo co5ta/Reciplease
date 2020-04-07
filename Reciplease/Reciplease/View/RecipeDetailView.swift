@@ -65,10 +65,9 @@ extension RecipeDetailView {
     /// Sets up the ingredients list view
     private func setUpIngredientsTextView() {
         addSubview(ingredientsTextView)
-        ingredientsTextView.font = UIFont.preferredFont(forTextStyle: .body)
+        ingredientsTextView.backgroundColor = .clear
         ingredientsTextView.isScrollEnabled = false
         ingredientsTextView.isEditable = false
-        ingredientsTextView.backgroundColor = .clear
         setUpIngredientsTextViewConstraints()
     }
     
@@ -152,6 +151,7 @@ extension RecipeDetailView {
         let ingredients = recipe.ingredients.map { return bullet + $0 }
         var attributes = [NSAttributedString.Key: Any]()
         attributes[.font] = UIFont.preferredFont(forTextStyle: .body)
+        attributes[.foregroundColor] = UIColor.label
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.headIndent = (bullet as NSString).size(withAttributes: attributes).width
         paragraphStyle.paragraphSpacing = 7

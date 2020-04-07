@@ -41,7 +41,7 @@ extension RecipePreview {
     
     /// Sets up the views
     private func setUpViews() {
-        backgroundColor = .white
+        backgroundColor = .systemBackground
         guard let recipe = recipe else { return }
         setUpPicture()
         setUpTitle()
@@ -150,16 +150,16 @@ extension RecipePreview {
     private func setUpData(from recipe: Recipe) {
         getPicture(from: recipe.pictureUrl)
         titleLabel.text = recipe.title
-        fill(stackView: healthStackView, withPicto: "heart", andLabels: recipe.healthLabels)
-        fill(stackView: cautionsStackView, withPicto: "warning", andLabels: recipe.cautionLabels)
+        fillStackView(healthStackView, withPicto: "heart", andLabels: recipe.healthLabels)
+        fillStackView(cautionsStackView, withPicto: "exclamationmark.circle", andLabels: recipe.cautionLabels)
     }
     
     /// Fills a label stackview or remove it if no data available
-    private func fill(stackView: LabelStackView, withPicto picto: String, andLabels labels: [String]) {
+    private func fillStackView(_ stackView: LabelStackView, withPicto picto: String, andLabels labels: [String]) {
         if labels.isEmpty {
             stackView.removeFromSuperview()
         } else {
-            stackView.picto.image = UIImage(named: picto)
+            stackView.picto.image = UIImage(systemName: picto)
             stackView.labels.text = labels.joined(separator: " | ")
         }
         

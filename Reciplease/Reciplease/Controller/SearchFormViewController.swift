@@ -26,11 +26,11 @@ class SearchFormViewController: UIViewController {
     /// Title of the ingredient section
     var ingredientsTitleLabel = UILabel()
     /// TextView which display the ingredients added
-    var ingredientsTextView = UITextView()
+    var ingredientsList = UITextView()
     /// Button to clear the ingredients list
     var clearButton = UIButton(type: .system)
     /// Button to submit the form
-    var submitButton = UIButton(type: .system)
+    var submitButton = UIButton()
     /// Array of ingredients
     var ingredients = [String]()
 }
@@ -67,7 +67,7 @@ extension SearchFormViewController {
     
     /// Sets up the root view
     private func setUpRootView() {
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         let tapView = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapView)
     }
@@ -75,13 +75,13 @@ extension SearchFormViewController {
     /// Sets up the text field section
     private func setUpTextFieldSection() {
         view.addSubview(textFieldView)
-        textFieldView.backgroundColor = .white
-        textFieldView.layer.cornerRadius = 10
-        textFieldView.layer.shadowColor = UIColor.lightGray.cgColor
-        textFieldView.layer.shadowOpacity = 0.5
+        textFieldView.backgroundColor = .tertiarySystemBackground
+        textFieldView.layer.shadowColor = UIColor.separator.cgColor
         textFieldView.layer.shadowOffset = CGSize(width: 1, height: 1)
-        textFieldView.layer.shadowRadius = 7
-        setUpTextFieldSectionConstraints()
+        textFieldView.layer.shadowOpacity = 1
+        textFieldView.layer.shadowRadius = 5
+        textFieldView.layer.cornerRadius = 10
+        setUpTextFieldViewConstraints()
     }
     
     /// Sets up the text field label
@@ -102,7 +102,7 @@ extension SearchFormViewController {
     /// Sets up the text field border
     private func setUpTextFieldBorder() {
         view.addSubview(textFieldBorder)
-        textFieldBorder.backgroundColor = .lightGray
+        textFieldBorder.backgroundColor = .opaqueSeparator
         setUpTextFieldBorderConstraints()
     }
     
@@ -120,21 +120,19 @@ extension SearchFormViewController {
     /// Sets up the ingredients section
     private func setUpIngredientsSection() {
         view.addSubview(ingredientsView)
-        ingredientsView.backgroundColor = .white
-        ingredientsView.layer.borderColor = UIColor.lightGray.cgColor
-        ingredientsView.layer.shadowColor = UIColor.lightGray.cgColor
-        ingredientsView.layer.shadowOpacity = 0.5
+        ingredientsView.backgroundColor = .tertiarySystemBackground
+        ingredientsView.layer.shadowColor = UIColor.separator.cgColor
         ingredientsView.layer.shadowOffset = CGSize(width: 1, height: 1)
-        ingredientsView.layer.shadowRadius = 10
+        ingredientsView.layer.shadowOpacity = 1
+        ingredientsView.layer.shadowRadius = 5
         ingredientsView.layer.cornerRadius = 10
-        setUpIngredientsSectionConstraints()
+        setUpIngredientsViewConstraints()
     }
     
     /// Sets up the ingredients title
     private func setUpIngredientsTitle() {
         view.addSubview(ingredientsTitleLabel)
         ingredientsTitleLabel.text = "Your ingredients :"
-        ingredientsTitleLabel.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
         ingredientsTitleLabel.font = UIFont.preferredFont(forTextStyle: .headline)
         setUpIngredientsTitleConstraints()
     }
@@ -146,14 +144,16 @@ extension SearchFormViewController {
         clearButton.backgroundColor = Config.cancelButtonColor
         clearButton.setTitle("Clear", for: .normal)
         clearButton.layer.cornerRadius = 5
+        clearButton.addTarget(self, action: #selector(removeIngredients), for: .touchUpInside)
         setUpClearButtonConstraints()
     }
     
     /// Sets up the ingredients list
     private func setUpIngredientsList() {
-        view.addSubview(ingredientsTextView)
-        ingredientsTextView.font = UIFont.preferredFont(forTextStyle: .body)
-        ingredientsTextView.isSelectable = false
+        view.addSubview(ingredientsList)
+        ingredientsList.font = UIFont.preferredFont(forTextStyle: .body)
+        ingredientsList.backgroundColor = .tertiarySystemBackground
+        ingredientsList.isSelectable = false
         setUpIngredientsListConstraints()
     }
     
@@ -164,7 +164,10 @@ extension SearchFormViewController {
         submitButton.backgroundColor = Config.globalTintColor
         submitButton.setTitle("Search for recipes", for: .normal)
         submitButton.layer.cornerRadius = 5
-        submitButton.addTarget(self, action: #selector(goToSearchResultScreen), for: .touchUpInside)
+        submitButton.addTarget(
+            self,
+            action: #selector(goToSearchResultScreen),
+            for: .touchUpInside)
         setUpSubmitButtonConstraints()
     }
 }
@@ -173,89 +176,187 @@ extension SearchFormViewController {
 extension SearchFormViewController {
  
     /// Sets up constraints for the text field section
-    private func setUpTextFieldSectionConstraints() {
+    private func setUpTextFieldViewConstraints() {
         textFieldView.translatesAutoresizingMaskIntoConstraints = false
-        textFieldView.topAnchor.constraint(equalTo: view.readableContentGuide.topAnchor, constant: 30).isActive = true
-        textFieldView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
-        textFieldView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
-        textFieldView.heightAnchor.constraint(equalTo: textFieldView.widthAnchor, multiplier: 2/5).isActive = true
+        textFieldView.heightAnchor.constraint(
+            equalTo: textFieldView.widthAnchor,
+            multiplier: 2/5)
+            .isActive = true
+        textFieldView.topAnchor.constraint(
+            equalToSystemSpacingBelow: view.readableContentGuide.topAnchor,
+            multiplier: 3)
+            .isActive = true
+        textFieldView.leadingAnchor.constraint(
+            equalToSystemSpacingAfter: view.leadingAnchor,
+            multiplier: 2)
+            .isActive = true
+        view.trailingAnchor.constraint(
+            equalToSystemSpacingAfter: textFieldView.trailingAnchor,
+            multiplier: 2)
+            .isActive = true
     }
     
     /// Sets up constraints for the text field label
     private func setUpTextFieldLabelConstraints() {
         textFieldLabel.translatesAutoresizingMaskIntoConstraints = false
-        textFieldLabel.topAnchor.constraint(equalTo: textFieldView.topAnchor, constant: 15).isActive = true
-        textFieldLabel.centerXAnchor.constraint(equalTo: textFieldView.centerXAnchor).isActive = true
+        textFieldLabel.topAnchor.constraint(
+            equalToSystemSpacingBelow: textFieldView.topAnchor,
+            multiplier: 2)
+            .isActive = true
+        textFieldLabel.centerXAnchor.constraint(
+            equalTo: textFieldView.centerXAnchor)
+            .isActive = true
     }
     
     /// Sets up constraints for the text field
     private func setUpTextFieldConstraints() {
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.leadingAnchor.constraint(equalTo: textFieldView.leadingAnchor, constant: 15).isActive = true
-        textField.bottomAnchor.constraint(equalTo: textFieldView.bottomAnchor, constant: -20).isActive = true
+        textField.leadingAnchor.constraint(
+            equalToSystemSpacingAfter: textFieldView.leadingAnchor,
+            multiplier: 2)
+            .isActive = true
     }
     
     /// Sets up constraints for the text field border
     private func setUpTextFieldBorderConstraints() {
         textFieldBorder.translatesAutoresizingMaskIntoConstraints = false
-        textFieldBorder.widthAnchor.constraint(equalTo: textField.widthAnchor).isActive = true
-        textFieldBorder.heightAnchor.constraint(equalToConstant: 1).isActive = true
-        textFieldBorder.centerXAnchor.constraint(equalTo: textField.centerXAnchor).isActive = true
-        textFieldBorder.topAnchor.constraint(equalTo: textField.bottomAnchor).isActive = true
+        textFieldBorder.heightAnchor.constraint(
+            equalToConstant: 1)
+            .isActive = true
+        textFieldBorder.widthAnchor.constraint(
+            equalTo: textField.widthAnchor)
+            .isActive = true
+        textFieldBorder.centerXAnchor.constraint(
+            equalTo: textField.centerXAnchor)
+            .isActive = true
+        textFieldBorder.topAnchor.constraint(
+            equalTo: textField.bottomAnchor)
+            .isActive = true
     }
     
     /// Sets up constraints for add button
     private func setUpAddButtonConstraints() {
         addButton.translatesAutoresizingMaskIntoConstraints = false
-        addButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        addButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        addButton.bottomAnchor.constraint(equalTo: textFieldBorder.bottomAnchor).isActive = true
-        addButton.trailingAnchor.constraint(equalTo: textFieldView.trailingAnchor, constant: -15).isActive = true
+        addButton.heightAnchor.constraint(
+            equalToConstant: 40)
+            .isActive = true
+        addButton.widthAnchor.constraint(
+            equalToConstant: 60)
+            .isActive = true
+        textFieldView.trailingAnchor.constraint(
+            equalToSystemSpacingAfter: addButton.trailingAnchor,
+            multiplier: 2)
+            .isActive = true
+        addButton.leadingAnchor.constraint(
+            equalToSystemSpacingAfter: textField.trailingAnchor,
+            multiplier: 2)
+            .isActive = true
+        addButton.bottomAnchor.constraint(
+            equalToSystemSpacingBelow: textFieldBorder.bottomAnchor,
+            multiplier: 0.1)
+            .isActive = true
+        textFieldView.bottomAnchor.constraint(
+            equalToSystemSpacingBelow: addButton.bottomAnchor,
+            multiplier: 2)
+            .isActive = true
+        
     }
     
     /// Sets up constraints for the ingredients section
-    private func setUpIngredientsSectionConstraints() {
+    private func setUpIngredientsViewConstraints() {
         ingredientsView.translatesAutoresizingMaskIntoConstraints = false
-        ingredientsView.topAnchor.constraint(equalTo: textFieldView.bottomAnchor, constant: 30).isActive = true
-        ingredientsView.leadingAnchor.constraint(equalTo: textFieldView.leadingAnchor).isActive = true
-        ingredientsView.trailingAnchor.constraint(equalTo: textFieldView.trailingAnchor).isActive = true
-        ingredientsView.bottomAnchor.constraint(equalTo: view.readableContentGuide.bottomAnchor, constant: -30).isActive = true
+        ingredientsView.topAnchor.constraint(
+            equalToSystemSpacingBelow: textFieldView.bottomAnchor,
+            multiplier: 3)
+            .isActive = true
+        ingredientsView.leadingAnchor.constraint(
+            equalTo: textFieldView.leadingAnchor)
+            .isActive = true
+        ingredientsView.trailingAnchor.constraint(
+            equalTo: textFieldView.trailingAnchor)
+            .isActive = true
+        view.readableContentGuide.bottomAnchor.constraint(
+            equalToSystemSpacingBelow: ingredientsView.bottomAnchor,
+            multiplier: 3)
+            .isActive = true
     }
+    
     /// Sets up constraints for the ingredients title
     private func setUpIngredientsTitleConstraints() {
         ingredientsTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        ingredientsTitleLabel.leadingAnchor.constraint(equalTo: ingredientsView.leadingAnchor, constant: 15).isActive = true
+        ingredientsTitleLabel.leadingAnchor.constraint(
+            equalToSystemSpacingAfter: ingredientsView.leadingAnchor,
+            multiplier: 2)
+            .isActive = true
     }
     
     /// Sets up constraints for the clear button
     private func setUpClearButtonConstraints() {
         clearButton.translatesAutoresizingMaskIntoConstraints = false
-        clearButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        clearButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        clearButton.centerYAnchor.constraint(equalTo: ingredientsTitleLabel.centerYAnchor).isActive = true
-        clearButton.topAnchor.constraint(equalTo: ingredientsView.topAnchor, constant: 15).isActive = true
-        clearButton.leadingAnchor.constraint(equalTo: ingredientsTitleLabel.trailingAnchor).isActive = true
-        clearButton.trailingAnchor.constraint(equalTo: ingredientsView.trailingAnchor, constant: -15).isActive = true
-        clearButton.addTarget(self, action: #selector(removeIngredients), for: .touchUpInside)
+        clearButton.heightAnchor.constraint(
+            equalToConstant: 40)
+            .isActive = true
+        clearButton.widthAnchor.constraint(
+            equalToConstant: 60)
+            .isActive = true
+        clearButton.topAnchor.constraint(
+            equalToSystemSpacingBelow: ingredientsView.topAnchor,
+            multiplier: 2)
+            .isActive = true
+        clearButton.leadingAnchor.constraint(
+            equalToSystemSpacingAfter: ingredientsTitleLabel.trailingAnchor,
+            multiplier: 2)
+            .isActive = true
+        ingredientsView.trailingAnchor.constraint(
+            equalToSystemSpacingAfter: clearButton.trailingAnchor,
+            multiplier: 2)
+            .isActive = true
+        clearButton.bottomAnchor.constraint(
+            equalToSystemSpacingBelow: ingredientsTitleLabel.bottomAnchor,
+            multiplier: 1)
+            .isActive = true
     }
     
     /// Sets up constraints for the ingredients list
     private func setUpIngredientsListConstraints() {
-        ingredientsTextView.translatesAutoresizingMaskIntoConstraints = false
-        ingredientsTextView.topAnchor.constraint(equalTo: ingredientsTitleLabel.topAnchor, constant: 30).isActive = true
-        ingredientsTextView.leadingAnchor.constraint(equalTo: ingredientsTitleLabel.leadingAnchor).isActive = true
-        ingredientsTextView.trailingAnchor.constraint(equalTo: ingredientsView.trailingAnchor).isActive = true
+        ingredientsList.translatesAutoresizingMaskIntoConstraints = false
+        ingredientsList.topAnchor.constraint(
+            equalToSystemSpacingBelow: clearButton.bottomAnchor,
+            multiplier: 2)
+            .isActive = true
+        ingredientsList.leadingAnchor.constraint(
+            equalTo: ingredientsTitleLabel.leadingAnchor)
+            .isActive = true
+        ingredientsList.trailingAnchor.constraint(
+            equalTo: clearButton.trailingAnchor)
+            .isActive = true
     }
     
     /// Sets up constraints for the submit button
     private func setUpSubmitButtonConstraints() {
         submitButton.translatesAutoresizingMaskIntoConstraints = false
-        submitButton.heightAnchor.constraint(equalTo: submitButton.widthAnchor, multiplier: 1/6).isActive = true
-        submitButton.centerXAnchor.constraint(equalTo: ingredientsView.centerXAnchor).isActive = true
-        submitButton.topAnchor.constraint(equalTo: ingredientsTextView.bottomAnchor, constant: -30).isActive = true
-        submitButton.leadingAnchor.constraint(equalTo: ingredientsView.leadingAnchor, constant: 30).isActive = true
-        submitButton.trailingAnchor.constraint(equalTo: ingredientsView.trailingAnchor, constant: -30).isActive = true
-        submitButton.bottomAnchor.constraint(equalTo: ingredientsView.bottomAnchor, constant: -30).isActive = true
+        submitButton.heightAnchor.constraint(
+            equalToConstant: 50)
+            .isActive = true
+        submitButton.centerXAnchor.constraint(
+            equalTo: ingredientsView.centerXAnchor)
+            .isActive = true
+        submitButton.topAnchor.constraint(
+            equalToSystemSpacingBelow: ingredientsList.bottomAnchor,
+            multiplier: 2)
+            .isActive = true
+        submitButton.leadingAnchor.constraint(
+            equalToSystemSpacingAfter: ingredientsView.leadingAnchor,
+            multiplier: 2)
+            .isActive = true
+        ingredientsView.trailingAnchor.constraint(
+            equalToSystemSpacingAfter: submitButton.trailingAnchor,
+            multiplier: 2)
+            .isActive = true
+        ingredientsView.bottomAnchor.constraint(
+            equalToSystemSpacingBelow: submitButton.bottomAnchor,
+            multiplier: 2)
+            .isActive = true
     }
 }
 
@@ -269,7 +370,7 @@ extension SearchFormViewController {
         guard let newIngredient = textField.text, newIngredient != "" else { return }
         ingredients.append(newIngredient)
         let joinedIngredients = ingredients.joined(separator: "\n- ")
-        ingredientsTextView.text = "- \(joinedIngredients)"
+        ingredientsList.text = "- \(joinedIngredients)"
         textField.text = ""
     }
     
@@ -277,7 +378,7 @@ extension SearchFormViewController {
     @objc
     func removeIngredients() {
         ingredients.removeAll()
-        ingredientsTextView.text = ""
+        ingredientsList.text = ""
     }
     
     /// Hides the keyboard when needed

@@ -42,7 +42,6 @@ extension RecipeListViewController {
     /// Called after the controller's view is loaded into memory
     override func viewDidLoad() {
         super.viewDidLoad()
-        if ingredients == nil { tabBarController?.delegate = self }
         setUpViews()
         getRecipes()
     }
@@ -61,7 +60,8 @@ extension RecipeListViewController {
     /// Sets up the views
     func setUpViews() {
         navigationItem.title = "Search"
-        view.backgroundColor = UIColor.white
+        view.backgroundColor = .systemBackground
+        if mode == .favorites { tabBarController?.delegate = self }
         setUpTableView()
         setUpNoRecipeLabel()
         setUpActivityIndicator()

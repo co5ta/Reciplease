@@ -49,6 +49,6 @@ extension RecipeTableViewCell {
         recipePreview.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         recipePreview.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         recipePreview.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        recipePreview.picture.heightAnchor.constraint(equalToConstant: 250).isActive = true
+        recipePreview.picture.heightAnchor.constraint(equalToConstant: 200).isActive = true
     }
 }

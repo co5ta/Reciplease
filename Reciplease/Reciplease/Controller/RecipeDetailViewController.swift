@@ -38,7 +38,7 @@ extension RecipeDetailViewController {
     
     /// Sets up the views
     func setUpViews() {
-        view.backgroundColor = .systemGray6
+        view.backgroundColor = .secondarySystemBackground
         setUpScrollView()
         setUpRecipeDetail()
         setUpFavoriteState()

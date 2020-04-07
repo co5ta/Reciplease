@@ -41,6 +41,7 @@ class LabelStackView: UIStackView {
     /// Sets up the picto
     private func setUpPicto() {
         addArrangedSubview(picto)
+        picto.tintColor = .secondaryLabel
         picto.contentMode = .scaleAspectFit
         setUpPictoContraints()
     }
@@ -48,7 +49,8 @@ class LabelStackView: UIStackView {
     /// Sets up the labels
     private func setUpLabels() {
         addArrangedSubview(labels)
-        labels.font = UIFont.preferredFont(forTextStyle: .caption1)
+        labels.font = UIFont.preferredFont(forTextStyle: .footnote)
+        labels.textColor = .secondaryLabel
         labels.numberOfLines = 0
         setUpLabelsConstraints()
     }
