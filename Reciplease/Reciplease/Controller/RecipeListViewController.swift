@@ -238,6 +238,7 @@ extension RecipeListViewController {
     func goToRecipeDetail(of recipe: Recipe) {
         let recipeDetailVC = RecipeDetailViewController()
         recipeDetailVC.recipe = recipe
+        recipeDetailVC.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(recipeDetailVC, animated: true)
     }
 }
