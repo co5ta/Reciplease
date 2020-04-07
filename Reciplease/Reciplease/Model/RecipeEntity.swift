@@ -53,5 +53,6 @@ class RecipeEntity: NSManagedObject {
         fetchRequest.predicate = NSPredicate(format: "title == %@", recipe.title)
         let object = try! AppDelegate.viewContext.fetch(fetchRequest)
         object.forEach { AppDelegate.viewContext.delete($0) }
+        try? AppDelegate.viewContext.save()
     }
 }
