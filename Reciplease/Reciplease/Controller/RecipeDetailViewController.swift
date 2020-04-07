@@ -147,6 +147,7 @@ extension RecipeDetailViewController {
     private func goToRecipeDirections() {
         guard let recipe = recipe, let recipeURL = URL(string: recipe.url) else { return }
         let safariVC = SFSafariViewController(url: recipeURL)
+        safariVC.preferredControlTintColor = Config.globalTintColor
         present(safariVC, animated: true, completion: nil)
     }
 }
