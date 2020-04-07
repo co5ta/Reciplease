@@ -167,9 +167,14 @@ extension RecipePreview {
     
     /// Gets the picture of the recipe
     private func getPicture(from pictureUrl: String) {
-        let placeholder = UIImage(named: "placeholder")
-        let options = ImageLoadingOptions(placeholder: nil, transition: .fadeIn(duration: 0.3), failureImage: placeholder)
-        guard let url = URL(string: pictureUrl) else { picture.image = placeholder; return }
+        let placeholder = UIImage(named: "plate")
+        let failureImage = UIImage(named: "failureImage")
+        let options = ImageLoadingOptions(
+            placeholder: placeholder,
+            transition: .fadeIn(duration: 0.3),
+            failureImage: failureImage,
+            contentModes: .init(success: .scaleAspectFill, failure: .scaleAspectFill, placeholder: .center))
+        guard let url = URL(string: pictureUrl) else { picture.image = failureImage; return }
         Nuke.loadImage(with: url, options: options, into: picture)
     }
 }
