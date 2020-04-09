@@ -24,6 +24,10 @@
 		22572544242C061B00D4C5E9 /* LabelStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22572543242C061B00D4C5E9 /* LabelStackView.swift */; };
 		22577DB92420A19900C997CE /* RecipeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22577DB82420A19900C997CE /* RecipeListViewController.swift */; };
 		22577DBF24215B9500C997CE /* RecipeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22577DBE24215B9500C997CE /* RecipeService.swift */; };
+		22805586243F31E30091412D /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22805585243F31E30091412D /* Strings.swift */; };
+		22805589243F3A6D0091412D /* RecipeListViewController+Mode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22805588243F3A6D0091412D /* RecipeListViewController+Mode.swift */; };
+		2280558B243F3AB00091412D /* RecipeListViewController+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2280558A243F3AB00091412D /* RecipeListViewController+State.swift */; };
+		2280558D243F5E0D0091412D /* UIAlertController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2280558C243F5E0D0091412D /* UIAlertController+Alert.swift */; };
 		22B094932425374000911C43 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B094922425374000911C43 /* Config.swift */; };
 		22D611A3242D33A600B706D6 /* RecipePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D611A2242D33A600B706D6 /* RecipePreview.swift */; };
 		22D611A5242D340A00B706D6 /* RecipeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D611A4242D340A00B706D6 /* RecipeDetailViewController.swift */; };
@@ -52,6 +56,10 @@
 		22572543242C061B00D4C5E9 /* LabelStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelStackView.swift; sourceTree = "<group>"; };
 		22577DB82420A19900C997CE /* RecipeListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeListViewController.swift; sourceTree = "<group>"; };
 		22577DBE24215B9500C997CE /* RecipeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeService.swift; sourceTree = "<group>"; };
+		22805585243F31E30091412D /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
+		22805588243F3A6D0091412D /* RecipeListViewController+Mode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecipeListViewController+Mode.swift"; sourceTree = "<group>"; };
+		2280558A243F3AB00091412D /* RecipeListViewController+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecipeListViewController+State.swift"; sourceTree = "<group>"; };
+		2280558C243F5E0D0091412D /* UIAlertController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Alert.swift"; sourceTree = "<group>"; };
 		22B094922425374000911C43 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		22D611A2242D33A600B706D6 /* RecipePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipePreview.swift; sourceTree = "<group>"; };
 		22D611A4242D340A00B706D6 /* RecipeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailViewController.swift; sourceTree = "<group>"; };
@@ -105,6 +113,7 @@
 				22577DBA2421586E00C997CE /* Controller */,
 				22577DBC242158EF00C997CE /* Service */,
 				22B094912425372800911C43 /* Config */,
+				22805587243F3A340091412D /* Extension */,
 				22536EAF241B8ED000B15DC2 /* SupportingFiles */,
 			);
 			path = Reciplease;
@@ -165,10 +174,21 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		22805587243F3A340091412D /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				22805588243F3A6D0091412D /* RecipeListViewController+Mode.swift */,
+				2280558A243F3AB00091412D /* RecipeListViewController+State.swift */,
+				2280558C243F5E0D0091412D /* UIAlertController+Alert.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		22B094912425372800911C43 /* Config */ = {
 			isa = PBXGroup;
 			children = (
 				22B094922425374000911C43 /* Config.swift */,
+				22805585243F31E30091412D /* Strings.swift */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -297,16 +317,20 @@
 			files = (
 				22536E99241B843C00B15DC2 /* Reciplease.xcdatamodeld in Sources */,
 				2256DBCE242FD7B4006B3DE1 /* RecipeDetailView.swift in Sources */,
+				2280558B243F3AB00091412D /* RecipeListViewController+State.swift in Sources */,
 				22536EAE241B8BDF00B15DC2 /* SearchFormViewController.swift in Sources */,
 				22572544242C061B00D4C5E9 /* LabelStackView.swift in Sources */,
 				22D611A5242D340A00B706D6 /* RecipeDetailViewController.swift in Sources */,
+				22805586243F31E30091412D /* Strings.swift in Sources */,
 				22536EA8241B870C00B15DC2 /* SearchNavigationController.swift in Sources */,
 				2253DB8C2427A6AE005C2612 /* RecipeTableViewCell.swift in Sources */,
 				22536EAA241B874300B15DC2 /* FavoritesNavigationController.swift in Sources */,
 				22536E8F241B843C00B15DC2 /* AppDelegate.swift in Sources */,
+				2280558D243F5E0D0091412D /* UIAlertController+Alert.swift in Sources */,
 				22D611A3242D33A600B706D6 /* RecipePreview.swift in Sources */,
 				2252AF9324349608007AFC18 /* RecipeEntity.swift in Sources */,
 				22536EA6241B86BF00B15DC2 /* TabBarController.swift in Sources */,
+				22805589243F3A6D0091412D /* RecipeListViewController+Mode.swift in Sources */,
 				22577DBF24215B9500C997CE /* RecipeService.swift in Sources */,
 				22B094932425374000911C43 /* Config.swift in Sources */,
 				22536E91241B843C00B15DC2 /* SceneDelegate.swift in Sources */,

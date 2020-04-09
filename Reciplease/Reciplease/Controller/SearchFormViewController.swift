@@ -174,10 +174,7 @@ extension SearchFormViewController {
         submitButton.backgroundColor = Config.globalTintColor
         submitButton.setTitle("Search for recipes", for: .normal)
         submitButton.layer.cornerRadius = 5
-        submitButton.addTarget(
-            self,
-            action: #selector(goToSearchResultScreen),
-            for: .touchUpInside)
+        submitButton.addTarget(self, action: #selector(goToSearchResultScreen), for: .touchUpInside)
         setUpSubmitButtonConstraints()
     }
 }
@@ -208,7 +205,9 @@ extension SearchFormViewController {
         textFieldLabel.topAnchor.constraint(
             equalToSystemSpacingBelow: textFieldView.topAnchor,
             multiplier: 2).isActive = true
-        textFieldLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: textFieldView.leadingAnchor, multiplier: 2).isActive = true
+        textFieldLabel.leadingAnchor.constraint(
+            equalToSystemSpacingAfter: textFieldView.leadingAnchor,
+            multiplier: 2).isActive = true
     }
     
     /// Sets up constraints for the text field
@@ -365,7 +364,7 @@ extension SearchFormViewController {
     @objc
     func goToSearchResultScreen() {
         guard ingredients.isEmpty == false else { return }
-        let searchResultScreen = RecipeListViewController(mode: .searchResult)
+        let searchResultScreen = RecipeListViewController(mode: .search)
         searchResultScreen.ingredients = ingredients.joined(separator: " ")
         navigationController?.pushViewController(searchResultScreen, animated: true)
     }
