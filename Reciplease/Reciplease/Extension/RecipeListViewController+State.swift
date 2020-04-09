@@ -12,10 +12,12 @@ extension RecipeListViewController {
     
     /// States available for the view controller
     enum State {
-        /// Getting data
+        /// Requesting recipes
         case loading
         /// Data available
         case ready
+        /// Requesting next recipes
+        case infiniteScroll
         /// No data found
         case empty(mode: Mode)
         /// An error occurred

@@ -21,6 +21,8 @@ class RecipeListViewController: UIViewController {
     var callbackStackView = UIStackView()
     /// Background query indicator
     var activityindicator = UIActivityIndicatorView()
+    /// Infinite scroll loading indicator
+    var loadingLabel = UILabel()
     /// View controller state
     var state: State? { didSet {configure()} }
     /// Mode to indicates the context
@@ -76,6 +78,8 @@ extension RecipeListViewController {
             getRecipes()
         case .ready:
             toggleViews(show: tableView)
+        case .infiniteScroll:
+            loadingLabel.isHidden = false
         case .empty:
             toggleViews(show: callbackStackView)
             setUpCallbackStackViewData(systemName: "nosign")
@@ -87,9 +91,8 @@ extension RecipeListViewController {
     
     /// Shows the view which must bee displayed depending the view controller state
     private func toggleViews(show view: UIView) {
-        activityindicator.isHidden = view == activityindicator ? false : true
-        callbackStackView.isHidden = view == callbackStackView ? false : true
-        tableView.isHidden = view == tableView ? false : true
+        [activityindicator, callbackStackView, tableView, loadingLabel]
+        .forEach { $0.isHidden = view == $0 ? false : true }
     }
     
     /// Sets up data to display in the callback stack view
@@ -97,7 +100,7 @@ extension RecipeListViewController {
         let imageConfig = UIImage.SymbolConfiguration(pointSize: 150)
         callbackImage.image = UIImage(systemName: systemName, withConfiguration: imageConfig)
         guard let state = state else { return }
-        let text = "\(state.title)\n\n \(state.message)"
+        let text = "\(state.title) \n\n \(state.message)"
         callbackLabel.text = text
     }
 }
@@ -115,6 +118,7 @@ extension RecipeListViewController {
         setUpCallbackLabel()
         setUpCallbackStackView()
         setUpActivityIndicator()
+        setUpLoadingLabel()
     }
     
     /// Sets up the table view
@@ -158,6 +162,16 @@ extension RecipeListViewController {
         activityindicator.startAnimating()
         setUpActivityIndicatorConstraints()
     }
+    
+    /// Sets up the loading label
+    private func setUpLoadingLabel() {
+        view.addSubview(loadingLabel)
+        loadingLabel.text = "... loading ..."
+        loadingLabel.textColor = .secondaryLabel
+        loadingLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        loadingLabel.isHidden = true
+        setUpLoadingLabelConstraints()
+    }
 }
 
 // MARK: - Constraints
@@ -185,6 +199,15 @@ extension RecipeListViewController {
         activityindicator.translatesAutoresizingMaskIntoConstraints = false
         activityindicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         activityindicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+    }
+    
+    private func setUpLoadingLabelConstraints() {
+        loadingLabel.translatesAutoresizingMaskIntoConstraints = false
+        loadingLabel.centerXAnchor.constraint(
+            equalTo: view.centerXAnchor).isActive = true
+        tableView.bottomAnchor.constraint(
+            equalToSystemSpacingBelow: loadingLabel.bottomAnchor,
+            multiplier: 0.5).isActive = true
     }
 }
 
@@ -219,7 +242,7 @@ extension RecipeListViewController: UITableViewDelegate {
         guard mode == .search,
             indexPath.row + 1 == tableView.numberOfRows(inSection: 0)
             else { return }
-        //state = .infiniteScroll
+        state = .infiniteScroll
         getRecipesFromAPI()
     }
 }
