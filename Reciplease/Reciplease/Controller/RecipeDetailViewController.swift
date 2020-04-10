@@ -84,20 +84,25 @@ extension RecipeDetailViewController {
     /// Sets up the scroll view constraints
     func setUpScrollViewConstraints() {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        
     }
     
     /// Sets up the recipe detail view
     func setUpRecipeDetailConstraints() {
         recipeDetail.translatesAutoresizingMaskIntoConstraints = false
-        recipeDetail.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
-        recipeDetail.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
-        recipeDetail.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
-        recipeDetail.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
-        recipeDetail.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            recipeDetail.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            recipeDetail.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            recipeDetail.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            recipeDetail.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            recipeDetail.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
+        ])
     }
     
 }

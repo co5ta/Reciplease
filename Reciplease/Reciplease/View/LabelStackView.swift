@@ -27,7 +27,10 @@ class LabelStackView: UIStackView {
         super.init(coder: coder)
         setUpViews()
     }
-    
+}
+
+// MARK: - Setup
+extension LabelStackView {
     /// Sets up the views
     func setUpViews() {
         axis = .horizontal
@@ -54,17 +57,25 @@ class LabelStackView: UIStackView {
         labels.numberOfLines = 0
         setUpLabelsConstraints()
     }
-    
+}
+
+// MARK: - Constraints
+extension LabelStackView {
     /// Sets up the picto constraints
     func setUpPictoContraints() {
         picto.translatesAutoresizingMaskIntoConstraints = false
-        picto.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        picto.widthAnchor.constraint(equalTo: picto.heightAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            picto.heightAnchor.constraint(equalToConstant: 20),
+            picto.widthAnchor.constraint(equalTo: picto.heightAnchor)
+        ])
+        
     }
     
     /// Sets up the labels constraints
     func setUpLabelsConstraints() {
         labels.translatesAutoresizingMaskIntoConstraints = false
-        heightAnchor.constraint(equalTo: labels.heightAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            heightAnchor.constraint(equalTo: labels.heightAnchor)
+        ])
     }
 }

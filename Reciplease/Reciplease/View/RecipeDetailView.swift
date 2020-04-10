@@ -88,50 +88,64 @@ extension RecipeDetailView {
     /// Sets up the constraints of the recipe preview
     private func setUpRecipePreviewConstraints() {
         recipePreview.translatesAutoresizingMaskIntoConstraints = false
-        recipePreview.topAnchor.constraint(equalTo:
-            topAnchor).isActive = true
-        recipePreview.leadingAnchor.constraint(equalTo:
-            leadingAnchor).isActive = true
-        recipePreview.trailingAnchor.constraint(equalTo:
-            trailingAnchor).isActive = true
-        recipePreview.picture.heightAnchor.constraint(equalToConstant:
-            (UIScreen.main.bounds.height/2.5)).isActive = true
+        NSLayoutConstraint.activate([
+            recipePreview.topAnchor.constraint(equalTo: topAnchor),
+            recipePreview.leadingAnchor.constraint(equalTo: leadingAnchor),
+            recipePreview.trailingAnchor.constraint(equalTo: trailingAnchor),
+            recipePreview.picture.heightAnchor.constraint(equalToConstant: (UIScreen.main.bounds.height/2.5))
+        ])
     }
     
     /// Sets up the constraints of ingredients title label
     private func setUpIngredientsTitleLabelConstraints() {
         ingredientsTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-       recipePreview.bottomAnchor.constraint(equalToSystemSpacingBelow:
-            ingredientsTitleLabel.bottomAnchor, multiplier: 1).isActive = true
-        ingredientsTitleLabel.leadingAnchor.constraint(equalToSystemSpacingAfter:
-            leadingAnchor, multiplier: 1).isActive = true
-        trailingAnchor.constraint(equalToSystemSpacingAfter:
-            ingredientsTitleLabel.trailingAnchor, multiplier: 1).isActive = true
+        NSLayoutConstraint.activate([
+            recipePreview.bottomAnchor.constraint(
+                equalToSystemSpacingBelow: ingredientsTitleLabel.bottomAnchor,
+                multiplier: 1),
+            ingredientsTitleLabel.leadingAnchor.constraint(
+                equalToSystemSpacingAfter: leadingAnchor,
+                multiplier: 1),
+            trailingAnchor.constraint(
+                equalToSystemSpacingAfter: ingredientsTitleLabel.trailingAnchor,
+                multiplier: 1)
+        ])
     }
     
     /// Sets up the constraints of the ingredients list
     private func setUpIngredientsTextViewConstraints() {
         ingredientsTextView.translatesAutoresizingMaskIntoConstraints = false
-        ingredientsTextView.topAnchor.constraint(equalToSystemSpacingBelow:
-            ingredientsTitleLabel.bottomAnchor, multiplier: 2).isActive = true
-        ingredientsTextView.leadingAnchor.constraint(equalToSystemSpacingAfter:
-            leadingAnchor, multiplier: 1).isActive = true
-        trailingAnchor.constraint(equalToSystemSpacingAfter:
-            ingredientsTextView.trailingAnchor, multiplier: 1).isActive = true
+        NSLayoutConstraint.activate([
+            ingredientsTextView.topAnchor.constraint(
+                equalToSystemSpacingBelow: ingredientsTitleLabel.bottomAnchor,
+                multiplier: 2),
+            ingredientsTextView.leadingAnchor.constraint(
+                equalToSystemSpacingAfter: leadingAnchor,
+                multiplier: 1),
+            trailingAnchor.constraint(
+                equalToSystemSpacingAfter: ingredientsTextView.trailingAnchor,
+                multiplier: 1)
+        ])
     }
     
     /// Sets up the constraints of the get directions button
     private func setUpGetDirectionsButtonConstraints() {
         getDirectionsButton.translatesAutoresizingMaskIntoConstraints = false
-        getDirectionsButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        getDirectionsButton.topAnchor.constraint(greaterThanOrEqualToSystemSpacingBelow:
-            ingredientsTextView.bottomAnchor, multiplier: 5).isActive = true
-        getDirectionsButton.leadingAnchor.constraint(equalToSystemSpacingAfter:
-            leadingAnchor, multiplier: 7).isActive = true
-        trailingAnchor.constraint(equalToSystemSpacingAfter:
-            getDirectionsButton.trailingAnchor, multiplier: 7).isActive = true
-        bottomAnchor.constraint(equalToSystemSpacingBelow:
-            getDirectionsButton.bottomAnchor, multiplier: 5).isActive = true
+        NSLayoutConstraint.activate([
+            getDirectionsButton.heightAnchor.constraint(equalToConstant: 50),
+            getDirectionsButton.topAnchor.constraint(
+                greaterThanOrEqualToSystemSpacingBelow: ingredientsTextView.bottomAnchor,
+                multiplier: 5),
+            getDirectionsButton.leadingAnchor.constraint(
+                equalToSystemSpacingAfter: leadingAnchor,
+                multiplier: 7),
+            trailingAnchor.constraint(
+                equalToSystemSpacingAfter: getDirectionsButton.trailingAnchor,
+                multiplier: 7),
+            bottomAnchor.constraint(
+                equalToSystemSpacingBelow: getDirectionsButton.bottomAnchor,
+                multiplier: 5)
+        ])
     }
 }
 

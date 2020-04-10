@@ -180,34 +180,45 @@ extension RecipeListViewController {
     /// Sets up constraints for the table view
     private func setUpTableViewConstraints() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.topAnchor.constraint(equalTo: view.readableContentGuide.topAnchor).isActive = true
-        tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: view.readableContentGuide.bottomAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.readableContentGuide.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.readableContentGuide.bottomAnchor)
+        ])
     }
     
     /// Sets up constraints for the callback stack view
     private func setUpCallbackStackViewConstraints() {
         callbackStackView.translatesAutoresizingMaskIntoConstraints = false
-        callbackStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        callbackStackView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8).isActive = true
-        callbackStackView.topAnchor.constraint(equalTo: view.topAnchor,constant: view.frame.height/5).isActive = true
+        NSLayoutConstraint.activate([
+            callbackStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            callbackStackView.widthAnchor.constraint(
+                equalTo: view.readableContentGuide.widthAnchor,
+                multiplier: 0.8),
+            callbackStackView.topAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.topAnchor,
+                constant: view.frame.height/5)
+        ])
     }
     
     /// Sets up constraints for the activity indicator
     private func setUpActivityIndicatorConstraints() {
         activityindicator.translatesAutoresizingMaskIntoConstraints = false
-        activityindicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        activityindicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            activityindicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityindicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
     }
     
     private func setUpLoadingLabelConstraints() {
         loadingLabel.translatesAutoresizingMaskIntoConstraints = false
-        loadingLabel.centerXAnchor.constraint(
-            equalTo: view.centerXAnchor).isActive = true
-        tableView.bottomAnchor.constraint(
-            equalToSystemSpacingBelow: loadingLabel.bottomAnchor,
-            multiplier: 0.5).isActive = true
+        NSLayoutConstraint.activate([
+            loadingLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            tableView.bottomAnchor.constraint(
+                equalToSystemSpacingBelow: loadingLabel.bottomAnchor,
+                multiplier: 0.5)
+        ])
     }
 }
 

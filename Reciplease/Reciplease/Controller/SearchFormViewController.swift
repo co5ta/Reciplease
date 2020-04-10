@@ -98,6 +98,7 @@ extension SearchFormViewController {
     private func setUpTextFieldLabel() {
         view.addSubview(textFieldLabel)
         textFieldLabel.text = "What's on your fridge ?"
+        textFieldLabel.adjustsFontForContentSizeCategory = true
         textFieldLabel.font = UIFont.preferredFont(forTextStyle: .title1)
         setUpTextFieldLabelConstraints()
     }
@@ -185,146 +186,150 @@ extension SearchFormViewController {
     /// Sets up constraints for the text field section
     private func setUpTextFieldViewConstraints() {
         textFieldView.translatesAutoresizingMaskIntoConstraints = false
-        textFieldView.heightAnchor.constraint(
-            equalTo: textFieldView.widthAnchor,
-            multiplier: 2/5).isActive = true
-        textFieldView.topAnchor.constraint(
-            equalToSystemSpacingBelow: view.readableContentGuide.topAnchor,
-            multiplier: 3).isActive = true
-        textFieldView.leadingAnchor.constraint(
-            equalToSystemSpacingAfter: view.leadingAnchor,
-            multiplier: 2).isActive = true
-        view.trailingAnchor.constraint(
-            equalToSystemSpacingAfter: textFieldView.trailingAnchor,
-            multiplier: 2).isActive = true
+        NSLayoutConstraint.activate([
+            textFieldView.heightAnchor.constraint(
+                equalTo: textFieldView.widthAnchor,
+                multiplier: 2/5),
+            textFieldView.topAnchor.constraint(
+                equalToSystemSpacingBelow: view.readableContentGuide.topAnchor,
+                multiplier: 3),
+            textFieldView.leadingAnchor.constraint(
+                equalToSystemSpacingAfter: view.leadingAnchor,
+                multiplier: 2),
+            view.trailingAnchor.constraint(
+                equalToSystemSpacingAfter: textFieldView.trailingAnchor,
+                multiplier: 2)
+        ])
     }
     
     /// Sets up constraints for the text field label
     private func setUpTextFieldLabelConstraints() {
         textFieldLabel.translatesAutoresizingMaskIntoConstraints = false
-        textFieldLabel.topAnchor.constraint(
-            equalToSystemSpacingBelow: textFieldView.topAnchor,
-            multiplier: 2).isActive = true
-        textFieldLabel.leadingAnchor.constraint(
-            equalToSystemSpacingAfter: textFieldView.leadingAnchor,
-            multiplier: 2).isActive = true
+        NSLayoutConstraint.activate([
+            textFieldLabel.topAnchor.constraint(
+                equalToSystemSpacingBelow: textFieldView.topAnchor,
+                multiplier: 2),
+            textFieldLabel.leadingAnchor.constraint(
+                equalToSystemSpacingAfter: textFieldView.leadingAnchor,
+                multiplier: 2)
+        ])
     }
     
     /// Sets up constraints for the text field
     private func setUpTextFieldConstraints() {
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.leadingAnchor.constraint(
-            equalToSystemSpacingAfter: textFieldView.leadingAnchor,
-            multiplier: 2).isActive = true
+        NSLayoutConstraint.activate([
+            textField.leadingAnchor.constraint(
+                equalToSystemSpacingAfter: textFieldView.leadingAnchor,
+                multiplier: 2)
+        ])
     }
     
     /// Sets up constraints for the text field border
     private func setUpTextFieldBorderConstraints() {
         textFieldBorder.translatesAutoresizingMaskIntoConstraints = false
-        textFieldBorder.heightAnchor.constraint(
-            equalToConstant: 1).isActive = true
-        textFieldBorder.widthAnchor.constraint(
-            equalTo: textField.widthAnchor).isActive = true
-        textFieldBorder.centerXAnchor.constraint(
-            equalTo: textField.centerXAnchor).isActive = true
-        textFieldBorder.topAnchor.constraint(
-            equalTo: textField.bottomAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            textFieldBorder.heightAnchor.constraint(equalToConstant: 1),
+            textFieldBorder.widthAnchor.constraint(equalTo: textField.widthAnchor),
+            textFieldBorder.centerXAnchor.constraint(equalTo: textField.centerXAnchor),
+            textFieldBorder.topAnchor.constraint(equalTo: textField.bottomAnchor)
+        ])
     }
     
     /// Sets up constraints for add button
     private func setUpAddButtonConstraints() {
         addButton.translatesAutoresizingMaskIntoConstraints = false
-        addButton.heightAnchor.constraint(
-            equalToConstant: 40).isActive = true
-        addButton.widthAnchor.constraint(
-            equalToConstant: 60).isActive = true
-        textFieldView.trailingAnchor.constraint(
-            equalToSystemSpacingAfter: addButton.trailingAnchor,
-            multiplier: 2).isActive = true
-        addButton.leadingAnchor.constraint(
-            equalToSystemSpacingAfter: textField.trailingAnchor,
-            multiplier: 2).isActive = true
-        addButton.bottomAnchor.constraint(
-            equalToSystemSpacingBelow: textFieldBorder.bottomAnchor,
-            multiplier: 0.1).isActive = true
-        textFieldView.bottomAnchor.constraint(
-            equalToSystemSpacingBelow: addButton.bottomAnchor,
-            multiplier: 2).isActive = true
-        
+        NSLayoutConstraint.activate([
+            addButton.heightAnchor.constraint(equalToConstant: 40),
+            addButton.widthAnchor.constraint(equalToConstant: 60),
+            textFieldView.trailingAnchor.constraint(
+                equalToSystemSpacingAfter: addButton.trailingAnchor,
+                multiplier: 2),
+            addButton.leadingAnchor.constraint(
+                equalToSystemSpacingAfter: textField.trailingAnchor,
+                multiplier: 2),
+            addButton.bottomAnchor.constraint(
+                equalToSystemSpacingBelow: textFieldBorder.bottomAnchor,
+                multiplier: 0.1),
+            textFieldView.bottomAnchor.constraint(
+                equalToSystemSpacingBelow: addButton.bottomAnchor,
+                multiplier: 2)
+        ])
     }
     
     /// Sets up constraints for the ingredients section
     private func setUpIngredientsViewConstraints() {
         ingredientsView.translatesAutoresizingMaskIntoConstraints = false
-        ingredientsView.topAnchor.constraint(
-            equalToSystemSpacingBelow: textFieldView.bottomAnchor,
-            multiplier: 3).isActive = true
-        ingredientsView.leadingAnchor.constraint(
-            equalTo: textFieldView.leadingAnchor).isActive = true
-        ingredientsView.trailingAnchor.constraint(
-            equalTo: textFieldView.trailingAnchor).isActive = true
-        view.readableContentGuide.bottomAnchor.constraint(
-            equalToSystemSpacingBelow: ingredientsView.bottomAnchor,
-            multiplier: 3).isActive = true
+        NSLayoutConstraint.activate([
+            ingredientsView.topAnchor.constraint(
+                equalToSystemSpacingBelow: textFieldView.bottomAnchor,
+                multiplier: 3),
+            ingredientsView.leadingAnchor.constraint(equalTo: textFieldView.leadingAnchor),
+            ingredientsView.trailingAnchor.constraint(equalTo: textFieldView.trailingAnchor),
+            view.safeAreaLayoutGuide.bottomAnchor.constraint(
+                equalToSystemSpacingBelow: ingredientsView.bottomAnchor,
+                multiplier: 3)
+        ])
     }
     
     /// Sets up constraints for the ingredients title
     private func setUpIngredientsTitleConstraints() {
         ingredientsTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        ingredientsTitleLabel.topAnchor.constraint(
-            equalToSystemSpacingBelow: ingredientsView.topAnchor,
-            multiplier: 2).isActive = true
-        ingredientsTitleLabel.leadingAnchor.constraint(
-            equalToSystemSpacingAfter: ingredientsView.leadingAnchor,
-            multiplier: 2).isActive = true
+        NSLayoutConstraint.activate([
+            ingredientsTitleLabel.topAnchor.constraint(
+                equalToSystemSpacingBelow: ingredientsView.topAnchor,
+                multiplier: 2),
+            ingredientsTitleLabel.leadingAnchor.constraint(
+                equalToSystemSpacingAfter: ingredientsView.leadingAnchor,
+                multiplier: 2),
+        ])
     }
     
     /// Sets up constraints for the ingredients list
     private func setUpIngredientsListConstraints() {
         ingredientsList.translatesAutoresizingMaskIntoConstraints = false
-        ingredientsList.topAnchor.constraint(
-            equalToSystemSpacingBelow: ingredientsTitleLabel.bottomAnchor,
-            multiplier: 2).isActive = true
-        ingredientsList.leadingAnchor.constraint(
-            equalTo: ingredientsTitleLabel.leadingAnchor).isActive = true
-        ingredientsView.trailingAnchor.constraint(
-            equalToSystemSpacingAfter: ingredientsList.trailingAnchor,
-            multiplier: 2).isActive = true
+        NSLayoutConstraint.activate([
+            ingredientsList.topAnchor.constraint(
+                equalToSystemSpacingBelow: ingredientsTitleLabel.bottomAnchor,
+                multiplier: 2),
+            ingredientsList.leadingAnchor.constraint(equalTo: ingredientsTitleLabel.leadingAnchor),
+            ingredientsView.trailingAnchor.constraint(
+                equalToSystemSpacingAfter: ingredientsList.trailingAnchor,
+                multiplier: 2)
+        ])
     }
     
     /// Sets up constraints for the clear button
     private func setUpClearButtonConstraints() {
         clearButton.translatesAutoresizingMaskIntoConstraints = false
-        clearButton.heightAnchor.constraint(
-            equalToConstant: 50).isActive = true
-        clearButton.topAnchor.constraint(
-            equalToSystemSpacingBelow: ingredientsList.bottomAnchor,
-            multiplier: 2).isActive = true
-        clearButton.leadingAnchor.constraint(
-            equalToSystemSpacingAfter: ingredientsView.leadingAnchor,
-            multiplier: 2).isActive = true
-        ingredientsView.bottomAnchor.constraint(
-            equalToSystemSpacingBelow: clearButton.bottomAnchor,
-            multiplier: 2).isActive = true
+        NSLayoutConstraint.activate([
+            clearButton.heightAnchor.constraint(equalToConstant: 50),
+            clearButton.topAnchor.constraint(
+                equalToSystemSpacingBelow: ingredientsList.bottomAnchor,
+                multiplier: 2),
+            clearButton.leadingAnchor.constraint(
+                equalToSystemSpacingAfter: ingredientsView.leadingAnchor,
+                multiplier: 2),
+            ingredientsView.bottomAnchor.constraint(
+                equalToSystemSpacingBelow: clearButton.bottomAnchor,
+                multiplier: 2)
+        ])
     }
     
     /// Sets up constraints for the submit button
     private func setUpSubmitButtonConstraints() {
         submitButton.translatesAutoresizingMaskIntoConstraints = false
-        submitButton.heightAnchor.constraint(
-            equalTo: clearButton.heightAnchor).isActive = true
-        submitButton.widthAnchor.constraint(
-            equalTo: clearButton.widthAnchor).isActive = true
-        submitButton.leadingAnchor.constraint(
-            equalToSystemSpacingAfter: clearButton.trailingAnchor,
-            multiplier: 2).isActive = true
-        ingredientsView.trailingAnchor.constraint(
-            equalToSystemSpacingAfter: submitButton.trailingAnchor,
-            multiplier: 2).isActive = true
-        submitButton.bottomAnchor.constraint(
-            equalTo: clearButton.bottomAnchor).isActive = true
-        
-        
+        NSLayoutConstraint.activate([
+            submitButton.heightAnchor.constraint(equalTo: clearButton.heightAnchor),
+            submitButton.widthAnchor.constraint(equalTo: clearButton.widthAnchor),
+            submitButton.leadingAnchor.constraint(
+                equalToSystemSpacingAfter: clearButton.trailingAnchor,
+                multiplier: 2),
+            ingredientsView.trailingAnchor.constraint(
+                equalToSystemSpacingAfter: submitButton.trailingAnchor,
+                multiplier: 2),
+            submitButton.bottomAnchor.constraint(equalTo: clearButton.bottomAnchor),
+        ])
     }
 }
 

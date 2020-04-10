@@ -95,51 +95,65 @@ extension RecipePreview {
     /// Sets up constraints for the picture
     private func setUpPictureConstraints() {
         picture.translatesAutoresizingMaskIntoConstraints = false
-        picture.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        picture.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        picture.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            picture.topAnchor.constraint(equalTo: topAnchor),
+            picture.leadingAnchor.constraint(equalTo: leadingAnchor),
+            picture.trailingAnchor.constraint(equalTo: trailingAnchor)
+        ])
     }
     
     /// Sets up constraints for the title
     private func setUpTitleLabelConstraints() {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.topAnchor.constraint(equalToSystemSpacingBelow:
-            picture.bottomAnchor, multiplier: 1).isActive = true
-        titleLabel.leadingAnchor.constraint(equalToSystemSpacingAfter:
-            picture.leadingAnchor, multiplier: 1).isActive = true
-        picture.trailingAnchor.constraint(equalToSystemSpacingAfter:
-            titleLabel.trailingAnchor, multiplier: 1).isActive = true
+        NSLayoutConstraint.activate([
+            titleLabel.topAnchor.constraint(
+                equalToSystemSpacingBelow: picture.bottomAnchor,
+                multiplier: 1),
+            titleLabel.leadingAnchor.constraint(
+                equalToSystemSpacingAfter: picture.leadingAnchor,
+                multiplier: 1),
+            picture.trailingAnchor.constraint(
+                equalToSystemSpacingAfter: titleLabel.trailingAnchor,
+                multiplier: 1)
+        ])
     }
     
     /// Sets up constraints for the infos stack view
     private func setUpInfosStackViewConstraints() {
         infosStackView.translatesAutoresizingMaskIntoConstraints = false
-        infosStackView.topAnchor.constraint(equalToSystemSpacingBelow:
-            titleLabel.bottomAnchor, multiplier: 1).isActive = true
-        infosStackView.leadingAnchor.constraint(equalToSystemSpacingAfter:
-            leadingAnchor, multiplier: 1).isActive = true
-        trailingAnchor.constraint(equalToSystemSpacingAfter:
-            infosStackView.trailingAnchor, multiplier: 1).isActive = true
-        bottomAnchor.constraint(equalToSystemSpacingBelow:
-            infosStackView.bottomAnchor, multiplier: 9).isActive = true
+        NSLayoutConstraint.activate([
+            infosStackView.topAnchor.constraint(
+                equalToSystemSpacingBelow: titleLabel.bottomAnchor,
+                multiplier: 1),
+            infosStackView.leadingAnchor.constraint(
+                equalToSystemSpacingAfter: leadingAnchor,
+                multiplier: 1),
+            trailingAnchor.constraint(
+                equalToSystemSpacingAfter: infosStackView.trailingAnchor,
+                multiplier: 1),
+            bottomAnchor.constraint(
+                equalToSystemSpacingBelow: infosStackView.bottomAnchor,
+                multiplier: 9)
+        ])
     }
     
     /// Sets up constraints for the health stack view
     private func setUpHealthStackViewConstraints() {
         healthStackView.translatesAutoresizingMaskIntoConstraints = false
-        healthStackView.leadingAnchor.constraint(equalTo:
-            infosStackView.leadingAnchor).isActive = true
-        healthStackView.trailingAnchor.constraint(equalTo:
-            infosStackView.trailingAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            healthStackView.leadingAnchor.constraint(equalTo: infosStackView.leadingAnchor),
+            healthStackView.trailingAnchor.constraint(equalTo: infosStackView.trailingAnchor)
+        ])
     }
     
     /// Sets up constraints for the cautions stack view
     private func setUpCautionsStackViewConstraints() {
         cautionsStackView.translatesAutoresizingMaskIntoConstraints = false
-        cautionsStackView.leadingAnchor.constraint(equalTo:
-            infosStackView.leadingAnchor).isActive = true
-        cautionsStackView.trailingAnchor.constraint(equalTo:
-            infosStackView.trailingAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            cautionsStackView.leadingAnchor.constraint(equalTo: infosStackView.leadingAnchor),
+            cautionsStackView.trailingAnchor.constraint(equalTo: infosStackView.trailingAnchor)
+        ])
+        
     }
 }
 
@@ -150,12 +164,12 @@ extension RecipePreview {
     private func setUpData(from recipe: Recipe) {
         getPicture(from: recipe.pictureUrl)
         titleLabel.text = recipe.title
-        fillStackView(healthStackView, withPicto: "heart", andLabels: recipe.healthLabels)
-        fillStackView(cautionsStackView, withPicto: "exclamationmark.circle", andLabels: recipe.cautionLabels)
+        fillStackView(healthStackView, picto: "heart", labels: recipe.healthLabels)
+        fillStackView(cautionsStackView, picto: "exclamationmark.circle", labels: recipe.cautionLabels)
     }
     
     /// Fills a label stackview or remove it if no data available
-    private func fillStackView(_ stackView: LabelStackView, withPicto picto: String, andLabels labels: [String]) {
+    private func fillStackView(_ stackView: LabelStackView, picto: String, labels: [String]) {
         if labels.isEmpty {
             stackView.removeFromSuperview()
         } else {
