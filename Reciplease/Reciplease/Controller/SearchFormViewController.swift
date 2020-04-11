@@ -86,6 +86,10 @@ extension SearchFormViewController {
         setUpScrollViewConstraints()
     }
     
+<<<<<<< HEAD
+=======
+    ///Sets up the container
+>>>>>>> accessibility
     private func setUpContainer() {
         scrollView.addSubview(container)
         setUpContainerConstraints()
@@ -130,8 +134,11 @@ extension SearchFormViewController {
     /// Sets up the text field
     private func setUpTextField() {
         container.addSubview(textField)
+<<<<<<< HEAD
 //        textField.adjustsFontForContentSizeCategory = true
 //        textField.font = UIFont.preferredFont(forTextStyle: .body)
+=======
+>>>>>>> accessibility
         textField.placeholder = "Lemon, Cheese, Sausages..."
         setUpTextFieldConstraints()
     }
@@ -169,8 +176,12 @@ extension SearchFormViewController {
     private func setUpIngredientsList() {
         container.addSubview(ingredientsList)
         ingredientsList.font = UIFont.preferredFont(forTextStyle: .body)
+<<<<<<< HEAD
 //        ingredientsList.backgroundColor = .tertiarySystemBackground
         ingredientsList.backgroundColor = .systemGray
+=======
+        ingredientsList.backgroundColor = .tertiarySystemBackground
+>>>>>>> accessibility
         ingredientsList.adjustsFontForContentSizeCategory = true
         ingredientsList.isSelectable = false
         ingredientsList.isScrollEnabled = false
@@ -366,7 +377,6 @@ extension SearchFormViewController {
         clearButtonTopAnchor.priority = UILayoutPriority(rawValue: 1)
         
         NSLayoutConstraint.activate([
-//            clearButton.heightAnchor.constraint(equalToConstant: 50),
             clearButtonTopAnchor,
             clearButton.leadingAnchor.constraint(
                 equalToSystemSpacingAfter: ingredientsView.leadingAnchor,
