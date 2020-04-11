@@ -234,7 +234,7 @@ extension RecipeListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Config.reuseIdentifier, for: indexPath)
         guard let recipeCell = cell as? RecipeTableViewCell else { return cell }
-        recipeCell.recipePreview.recipe = recipes[indexPath.row]
+        recipeCell.recipe = recipes[indexPath.row]
         return cell
     }
 }
@@ -242,7 +242,7 @@ extension RecipeListViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 extension RecipeListViewController: UITableViewDelegate {
     
-    /// Tells the delegate that the specified row is now selected
+    /// Tells the delegate that the specified row has been selected
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let recipe = recipes[indexPath.row]
         goToRecipeDetail(of: recipe)
