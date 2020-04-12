@@ -167,8 +167,8 @@
 			isa = PBXGroup;
 			children = (
 				22572543242C061B00D4C5E9 /* LabelStackView.swift */,
-				2253DB8B2427A6AE005C2612 /* RecipeTableViewCell.swift */,
 				22D611A2242D33A600B706D6 /* RecipePreview.swift */,
+				2253DB8B2427A6AE005C2612 /* RecipeTableViewCell.swift */,
 				2256DBCD242FD7B4006B3DE1 /* RecipeDetailView.swift */,
 			);
 			path = View;

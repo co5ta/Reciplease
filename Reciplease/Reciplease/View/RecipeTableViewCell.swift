@@ -35,8 +35,7 @@ extension RecipeTableViewCell {
     /// Sets up the views
     func setUpViews() {
         selectionStyle = .none
-        addSubview(recipePreview)
-        recipePreview.titleLabel.numberOfLines = 2
+        contentView.addSubview(recipePreview)
         setUpConstraints()
     }
     
@@ -52,14 +51,12 @@ extension RecipeTableViewCell {
     
     /// Sets up the constraints
     func setUpConstraints() {
-        
-        
         recipePreview.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            recipePreview.topAnchor.constraint(equalTo: topAnchor),
-            recipePreview.leadingAnchor.constraint(equalTo: leadingAnchor),
-            recipePreview.trailingAnchor.constraint(equalTo: trailingAnchor),
-            recipePreview.bottomAnchor.constraint(equalTo: bottomAnchor),
+            recipePreview.topAnchor.constraint(equalTo: contentView.topAnchor),
+            recipePreview.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            recipePreview.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            recipePreview.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             recipePreview.picture.heightAnchor.constraint(equalToConstant: 200),
         ])
     }

@@ -57,6 +57,7 @@ extension RecipeDetailView {
     private func setUpIngredientsTitleLabel() {
         addSubview(ingredientsTitleLabel)
         ingredientsTitleLabel.font = UIFont.preferredFont(forTextStyle: .title3)
+        ingredientsTitleLabel.adjustsFontForContentSizeCategory = true
         ingredientsTitleLabel.text = "Ingredients:"
         ingredientsTitleLabel.textColor = Config.globalTintColor
         setUpIngredientsTitleLabelConstraints()
@@ -66,6 +67,7 @@ extension RecipeDetailView {
     private func setUpIngredientsTextView() {
         addSubview(ingredientsTextView)
         ingredientsTextView.backgroundColor = .clear
+        ingredientsTextView.adjustsFontForContentSizeCategory = true
         ingredientsTextView.isScrollEnabled = false
         ingredientsTextView.isEditable = false
         setUpIngredientsTextViewConstraints()
@@ -75,6 +77,10 @@ extension RecipeDetailView {
     private func setUpGetDirectionsButton() {
         addSubview(getDirectionsButton)
         getDirectionsButton.setTitle("Get directions", for: .normal)
+        getDirectionsButton.titleLabel?.adjustsFontForContentSizeCategory = true
+        getDirectionsButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        getDirectionsButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
+        getDirectionsButton.contentEdgeInsets = UIEdgeInsets(top: 15, left: 5, bottom: 15, right: 5)
         getDirectionsButton.tintColor = .white
         getDirectionsButton.backgroundColor = Config.globalTintColor
         getDirectionsButton.layer.cornerRadius = 5
@@ -132,16 +138,17 @@ extension RecipeDetailView {
     private func setUpGetDirectionsButtonConstraints() {
         getDirectionsButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            getDirectionsButton.heightAnchor.constraint(equalToConstant: 50),
+            getDirectionsButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+            getDirectionsButton.widthAnchor.constraint(greaterThanOrEqualTo: widthAnchor, multiplier: 0.6),
             getDirectionsButton.topAnchor.constraint(
-                greaterThanOrEqualToSystemSpacingBelow: ingredientsTextView.bottomAnchor,
+                equalToSystemSpacingBelow: ingredientsTextView.bottomAnchor,
                 multiplier: 5),
             getDirectionsButton.leadingAnchor.constraint(
-                equalToSystemSpacingAfter: leadingAnchor,
-                multiplier: 7),
+                greaterThanOrEqualToSystemSpacingAfter: leadingAnchor,
+                multiplier: 1),
             trailingAnchor.constraint(
-                equalToSystemSpacingAfter: getDirectionsButton.trailingAnchor,
-                multiplier: 7),
+                greaterThanOrEqualToSystemSpacingAfter: getDirectionsButton.trailingAnchor,
+                multiplier: 1),
             bottomAnchor.constraint(
                 equalToSystemSpacingBelow: getDirectionsButton.bottomAnchor,
                 multiplier: 5)

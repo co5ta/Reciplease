@@ -9,7 +9,7 @@
 import UIKit
 
 /// Stack view of the recipe labels
-class LabelStackView: UIStackView {
+class LabelStackView: UIView {
     
     /// Picto relative to labels
     var picto = UIImageView()
@@ -22,8 +22,8 @@ class LabelStackView: UIStackView {
         setUpViews()
     }
     
-    /// Initializes a table cell with a NSCoder object
-    required init(coder: NSCoder) {
+    /// Initializes with coder to init view from storyboard
+    required init?(coder: NSCoder) {
         super.init(coder: coder)
         setUpViews()
     }
@@ -31,51 +31,55 @@ class LabelStackView: UIStackView {
 
 // MARK: - Setup
 extension LabelStackView {
+    
     /// Sets up the views
     func setUpViews() {
-        axis = .horizontal
-        distribution = .fill
-        alignment = .center
-        spacing = 5
         setUpPicto()
         setUpLabels()
     }
     
-    /// Sets up the picto
-    private func setUpPicto() {
-        addArrangedSubview(picto)
-        picto.tintColor = .secondaryLabel
-        picto.contentMode = .scaleAspectFit
-        setUpPictoContraints()
-    }
-    
     /// Sets up the labels
     private func setUpLabels() {
-        addArrangedSubview(labels)
-        labels.font = UIFont.preferredFont(forTextStyle: .footnote)
+        addSubview(labels)
+        labels.font = UIFont.preferredFont(forTextStyle: .body)
+        labels.adjustsFontForContentSizeCategory = true
         labels.textColor = .secondaryLabel
         labels.numberOfLines = 0
         setUpLabelsConstraints()
+    }
+    
+    /// Sets up the picto
+    private func setUpPicto() {
+        addSubview(picto)
+        picto.tintColor = .secondaryLabel
+        picto.contentMode = .scaleAspectFit
+        picto.setContentCompressionResistancePriority(.required, for: .horizontal)
+        setUpPictoContraints()
     }
 }
 
 // MARK: - Constraints
 extension LabelStackView {
-    /// Sets up the picto constraints
+        
+/// Sets up the picto constraints
     func setUpPictoContraints() {
         picto.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            picto.heightAnchor.constraint(equalToConstant: 20),
-            picto.widthAnchor.constraint(equalTo: picto.heightAnchor)
+            picto.topAnchor.constraint(equalTo: topAnchor),
+            picto.leadingAnchor.constraint(equalTo: leadingAnchor),
         ])
-        
     }
     
     /// Sets up the labels constraints
     func setUpLabelsConstraints() {
         labels.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            heightAnchor.constraint(equalTo: labels.heightAnchor)
+            labels.topAnchor.constraint(equalTo: picto.topAnchor),
+            labels.leadingAnchor.constraint(
+                equalToSystemSpacingAfter: picto.trailingAnchor,
+                multiplier: 1),
+            labels.trailingAnchor.constraint(equalTo: trailingAnchor),
+            labels.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
     }
 }
