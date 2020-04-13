@@ -29,6 +29,7 @@ class RecipeListViewController: UIViewController {
     var mode: Mode
     /// List of recipes
     var recipes = [Recipe]()
+    /// Number of recipes already received from API
     var offset = 0
     /// Ingredients to search in recipes
     var ingredients: String?
@@ -140,7 +141,6 @@ extension RecipeListViewController {
     
     /// Sets up the no recipe label
     private func setUpCallbackLabel() {
-        //view.addSubview(callBackLabel)
         callbackStackView.addArrangedSubview(callbackLabel)
         callbackLabel.font = UIFont.preferredFont(forTextStyle: .headline)
         callbackLabel.textColor = .secondaryLabel
