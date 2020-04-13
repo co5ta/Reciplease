@@ -11,12 +11,6 @@ import Foundation
 /// Recipe API's decoded response
 struct SearchResult: Decodable {
     
-    /// First result index
-    let from: Int
-    /// Last result index
-    let to: Int
-    /// Total number of results found
-    let count: Int
     /// List of recipes
     let recipes: [Recipe]
 }
@@ -26,6 +20,6 @@ extension SearchResult {
     
     /// Give keys to use for decoding
     enum CodingKeys: String, CodingKey {
-        case from, to, count, recipes = "hits"
+        case recipes = "hits"
     }
 }

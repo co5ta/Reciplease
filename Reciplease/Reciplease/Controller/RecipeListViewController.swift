@@ -31,6 +31,8 @@ class RecipeListViewController: UIViewController {
     var recipes = [Recipe]()
     /// Number of recipes already received from API
     var offset = 0
+    /// Allows infinite scrolling as long as the value is true
+    var noMoreResults = false
     /// Ingredients to search in recipes
     var ingredients: String?
     
@@ -251,6 +253,7 @@ extension RecipeListViewController: UITableViewDelegate {
     /// Checks if the user reach the last cells to request next recipes
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         guard mode == .search,
+            noMoreResults == false,
             indexPath.row + 1 == tableView.numberOfRows(inSection: 0)
             else { return }
         state = .infiniteScroll
@@ -303,7 +306,12 @@ extension RecipeListViewController {
         let indexPaths = (offset..<recipes.count).map { IndexPath(row: $0, section: 0)}
         tableView.insertRows(at: indexPaths, with: .bottom)
         offset = recipes.count
-        state = recipes.isEmpty ? .empty(mode: mode) : .ready
+        if recipes.isEmpty {
+            noMoreResults = true
+            state = .empty(mode: mode)
+        } else {
+            state = .ready
+        }
     }
     
     /// Handles a failure result after a request
