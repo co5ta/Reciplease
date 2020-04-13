@@ -53,7 +53,7 @@ extension SearchFormViewController {
     /// Sets up the scroll view
     private func setUpScrollView() {
         view.addSubview(scrollView)
-        constrainScrollView()
+        setUpScrollViewConstraints()
     }
 
     /// Sets up the search form view
@@ -62,7 +62,7 @@ extension SearchFormViewController {
         searchFormView.addButton.addTarget(self, action: #selector(addIngredient), for: .touchUpInside)
         searchFormView.clearButton.addTarget(self, action: #selector(removeIngredients), for: .touchUpInside)
         searchFormView.submitButton.addTarget(self, action: #selector(goToSearchResultScreen), for: .touchUpInside)
-        constrainSearchFormView()
+        setUpSearchFormViewConstraints()
     }
     
 }
@@ -71,7 +71,7 @@ extension SearchFormViewController {
 extension SearchFormViewController {
  
     /// Sets up the constraints of the scroll view
-    private func constrainScrollView() {
+    private func setUpScrollViewConstraints() {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -82,7 +82,7 @@ extension SearchFormViewController {
     }
     
     /// Sets up the constraints of the search view form
-    private func constrainSearchFormView() {
+    private func setUpSearchFormViewConstraints() {
         searchFormView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             searchFormView.heightAnchor.constraint(
