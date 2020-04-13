@@ -54,6 +54,7 @@ extension LabelStackView {
         picto.tintColor = .secondaryLabel
         picto.contentMode = .scaleAspectFit
         picto.setContentCompressionResistancePriority(.required, for: .horizontal)
+        picto.setContentHuggingPriority(.required, for: .horizontal)
         setUpPictoContraints()
     }
 }
@@ -76,8 +77,8 @@ extension LabelStackView {
         NSLayoutConstraint.activate([
             labels.topAnchor.constraint(equalTo: picto.topAnchor),
             labels.leadingAnchor.constraint(
-                equalToSystemSpacingAfter: picto.trailingAnchor,
-                multiplier: 1),
+            equalToSystemSpacingAfter: picto.trailingAnchor,
+            multiplier: 1),
             labels.trailingAnchor.constraint(equalTo: trailingAnchor),
             labels.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])

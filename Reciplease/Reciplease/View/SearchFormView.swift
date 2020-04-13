@@ -302,13 +302,12 @@ extension SearchFormView {
     /// Sets up constraints for the clear button
     private func setUpClearButtonConstraints() {
         clearButton.translatesAutoresizingMaskIntoConstraints = false
-        let clearButtonTopAnchor = clearButton.topAnchor.constraint(
-                        equalToSystemSpacingBelow: ingredientsList.bottomAnchor,
-                        multiplier: 2)
-        clearButtonTopAnchor.priority = UILayoutPriority(rawValue: 1)
-        
+        let topConstraint = clearButton.topAnchor.constraint(
+                equalToSystemSpacingBelow: ingredientsList.bottomAnchor,
+                multiplier: 2)
+        topConstraint.priority = UILayoutPriority(rawValue: 1)
         NSLayoutConstraint.activate([
-            clearButtonTopAnchor,
+            topConstraint,
             clearButton.leadingAnchor.constraint(
                 equalToSystemSpacingAfter: ingredientsView.leadingAnchor,
                 multiplier: 2),
