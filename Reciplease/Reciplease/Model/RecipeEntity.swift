@@ -38,7 +38,9 @@ class RecipeEntity: NSManagedObject {
     /// Deletes a recipe from favorites
     static func delete(recipe: Recipe) throws {
         let fetchRequest: NSFetchRequest<RecipeEntity> = RecipeEntity.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "title == %@", recipe.title)
+        let titlePredicate = NSPredicate(format: "title == %@", recipe.title)
+        let urlPredicate = NSPredicate(format: "url == %@", recipe.url)
+        fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [titlePredicate, urlPredicate])
         let object = try! AppDelegate.viewContext.fetch(fetchRequest)
         object.forEach { AppDelegate.viewContext.delete($0) }
         do { try AppDelegate.viewContext.save() }
