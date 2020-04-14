@@ -13,46 +13,35 @@ import CoreData
 class RecipeEntity: NSManagedObject {
     
     /// Loads all stored recipes
-    static func loadAll() -> [Recipe] {
+    static func loadAll() throws -> [Recipe] {
         let request: NSFetchRequest<RecipeEntity> = RecipeEntity.fetchRequest()
-        guard let recipeEntities = try? AppDelegate.viewContext.fetch(request) else { return [] }
-        var recipes = [Recipe]()
-        recipeEntities.forEach { (recipeEntity) in
-            let health = try? JSONDecoder().decode([String].self, from: recipeEntity.healthLabels!)
-            let cautions = try? JSONDecoder().decode([String].self, from: recipeEntity.cautionsLabels!)
-            let ingredients = try? JSONDecoder().decode([String].self, from: recipeEntity.ingredients!)
-            let recipe = Recipe(
-                title: recipeEntity.title!,
-                pictureUrl: recipeEntity.pictureURL!,
-                url: recipeEntity.url!,
-                people: recipeEntity.people,
-                healthLabels: health!,
-                cautionLabels: cautions!,
-                ingredients: ingredients!)
-            recipes.append(recipe)
-        }
-        return recipes
+        let recipeEntities: [RecipeEntity]
+        do { recipeEntities = try AppDelegate.viewContext.fetch(request) }
+        catch let error { throw error }
+        return recipeEntities.map { Recipe(from: $0)}
     }
     
     /// Saves a recipe added in favorites
-    static func save(recipe: Recipe) {
+    static func save(recipe: Recipe) throws {
         let recipeEntity = RecipeEntity(context: AppDelegate.viewContext)
         recipeEntity.title = recipe.title
-        recipeEntity.pictureURL = recipe.pictureUrl
+        recipeEntity.pictureURL = recipe.pictureURL
         recipeEntity.url = recipe.url
         recipeEntity.people = recipe.people
         recipeEntity.healthLabels = try? JSONEncoder().encode(recipe.healthLabels)
-        recipeEntity.cautionsLabels = try? JSONEncoder().encode(recipe.cautionLabels)
+        recipeEntity.cautionLabels = try? JSONEncoder().encode(recipe.cautionLabels)
         recipeEntity.ingredients = try? JSONEncoder().encode(recipe.ingredients)
-        try? AppDelegate.viewContext.save()
+        do { try AppDelegate.viewContext.save() }
+        catch(let error) { throw error }
     }
     
     /// Deletes a recipe from favorites
-    static func delete(recipe: Recipe) {
+    static func delete(recipe: Recipe) throws {
         let fetchRequest: NSFetchRequest<RecipeEntity> = RecipeEntity.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "title == %@", recipe.title)
         let object = try! AppDelegate.viewContext.fetch(fetchRequest)
         object.forEach { AppDelegate.viewContext.delete($0) }
-        try? AppDelegate.viewContext.save()
+        do { try AppDelegate.viewContext.save() }
+        catch(let error) { throw error }
     }
 }

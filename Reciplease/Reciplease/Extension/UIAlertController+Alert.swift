@@ -12,7 +12,7 @@ import UIKit
 extension UIAlertController {
     
     /// Generates a plain alert with a confirmation button
-    static func getPlainAlert(title: String, message: String?) -> UIAlertController {
+    static func plainAlert(title: String, message: String?) -> UIAlertController {
         let alert = UIAlertController(
             title: Strings.errorTitle,
             message: message,

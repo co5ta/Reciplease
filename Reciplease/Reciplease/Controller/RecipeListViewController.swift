@@ -319,7 +319,7 @@ extension RecipeListViewController {
         if recipes.isEmpty {
             state = .error(message: message)
         } else {
-            let alert = UIAlertController.getPlainAlert(title: Strings.errorTitle, message: message)
+            let alert = UIAlertController.plainAlert(title: Strings.errorTitle, message: message)
             present(alert, animated: true)
             state = .ready
         }

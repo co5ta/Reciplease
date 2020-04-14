@@ -18,7 +18,18 @@ class FavoritesNavigationController: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewControllers.append(favoritesListVC)
-        Recipe.favorites = RecipeEntity.loadAll()
+        getFavorites()
+    }
+    
+    /// Gets favorite recipes from storage
+    private func getFavorites() {
+        do { try Recipe.favorites = RecipeEntity.loadAll() }
+        catch let error {
+            let alert = UIAlertController.plainAlert(
+                title: "Error",
+                message: error.localizedDescription)
+            present(alert, animated: true)
+        }
     }
 
 }

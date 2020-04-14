@@ -14,7 +14,7 @@ struct Recipe {
     /// Recipe namess
     let title: String
     /// Recipe image url
-    let pictureUrl: String
+    let pictureURL: String
     /// Recipe url
     let url: String
     /// Number of people
@@ -41,7 +41,7 @@ extension Recipe: Decodable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let recipe = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .recipe)
         title = try recipe.decode(String.self, forKey: .title)
-        pictureUrl = try recipe.decode(String.self, forKey: .pictureUrl)
+        pictureURL = try recipe.decode(String.self, forKey: .pictureURL)
         url = try recipe.decode(String.self, forKey: .url)
         people = try recipe.decode(Float.self, forKey: .people)
         healthLabels = try recipe.decode([String].self, forKey: .healthLabels)
@@ -53,12 +53,39 @@ extension Recipe: Decodable {
     enum CodingKeys: String, CodingKey {
         case recipe
         case title = "label"
-        case pictureUrl = "image"
+        case pictureURL = "image"
         case url
         case people = "yield"
         case healthLabels
         case cautionLabels = "cautions"
         case ingredients = "ingredientLines"
+    }
+}
+
+// MARK: - Core Data
+extension Recipe {
+    
+    /// Init properties from a NSManagedObject
+    init(from recipeEntity: RecipeEntity) {
+        self.title = recipeEntity.title ?? ""
+        self.pictureURL = recipeEntity.pictureURL ?? ""
+        self.url = recipeEntity.url ?? ""
+        self.people = recipeEntity.people
+
+        if let healthData = recipeEntity.healthLabels,
+            let healthLabels = try? JSONDecoder().decode([String].self, from: healthData) {
+            self.healthLabels = healthLabels
+        } else { self.healthLabels = [] }
+        
+        if let cautionData = recipeEntity.cautionLabels,
+            let cautionLabels = try? JSONDecoder().decode([String].self, from: cautionData) {
+            self.cautionLabels = cautionLabels
+        } else { self.cautionLabels = [] }
+        
+        if let ingredientsData = recipeEntity.ingredients,
+            let ingredients = try? JSONDecoder().decode([String].self, from: ingredientsData) {
+            self.ingredients = ingredients
+        } else { self.ingredients = [] }
     }
 }
 
@@ -70,6 +97,3 @@ extension Recipe: Equatable {
         return left.title == right.title && left.url == right.url
     }
 }
-
-// MARK: - Hashable
-extension Recipe: Hashable {}

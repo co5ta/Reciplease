@@ -134,7 +134,7 @@ extension RecipePreview {
 
     /// Sets up the data
     private func setUpData(from recipe: Recipe) {
-        getPicture(from: recipe.pictureUrl)
+        getPicture(from: recipe.pictureURL)
         titleLabel.text = recipe.title
         fillStackView(healthStackView, picto: "heart", labels: recipe.healthLabels)
         fillStackView(cautionsStackView, picto: "exclamationmark.circle", labels: recipe.cautionLabels)

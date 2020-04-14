@@ -113,23 +113,30 @@ extension RecipeDetailViewController {
     /// Toggles the favorite state of the recipe
     @objc
     private func toggleFavorite() {
+        let action = isFavorite ? deleteFromFavorites : addToFavorites
+        do { try action() }
+        catch let error {
+            let alert = UIAlertController.plainAlert(title: "Error", message: error.localizedDescription)
+            present(alert, animated: true)
+        }
         isFavorite.toggle()
         setupFavoriteButton()
-        isFavorite ? addToFavorites() : deleteFromFavorites()
         Recipe.favoritesListEdited = true
     }
     
     /// Adds the recipe to the favorites
-    private func addToFavorites() {
+    private func addToFavorites() throws {
         guard let recipe = recipe else { return }
-        RecipeEntity.save(recipe: recipe)
+        do { try RecipeEntity.save(recipe: recipe) }
+        catch let error { throw error }
         Recipe.favorites.append(recipe)
     }
     
     /// Removes the recipe from the favorites
-    private func deleteFromFavorites() {
+    private func deleteFromFavorites() throws {
         guard let recipe = recipe else { return }
-        RecipeEntity.delete(recipe: recipe)
+        do { try RecipeEntity.delete(recipe: recipe) }
+        catch let error { throw error }
         Recipe.favorites = Recipe.favorites.filter({ $0 != recipe })
     }
 }
