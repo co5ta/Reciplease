@@ -45,16 +45,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return container
     }()
     
-    /// Simpler access to persistentContainer
-    static var persistentContainer: NSPersistentContainer {
-        return (UIApplication.shared.delegate as! AppDelegate).persistentContainer
-    }
-    
-    /// Simpler access to viewContext
-    static var viewContext: NSManagedObjectContext {
-        return persistentContainer.viewContext
-    }
-
     // MARK: - Core Data Saving support
 
     func saveContext () {
@@ -70,6 +60,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-
 }
 

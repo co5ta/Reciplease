@@ -23,7 +23,7 @@ class FavoritesNavigationController: UINavigationController {
     
     /// Gets favorite recipes from storage
     private func getFavorites() {
-        do { try Recipe.favorites = RecipeEntity.loadAll() }
+        do { try Recipe.favorites = StorageManager.shared.loadRecipes() }
         catch let error {
             let alert = UIAlertController.plainAlert(
                 title: "Error",

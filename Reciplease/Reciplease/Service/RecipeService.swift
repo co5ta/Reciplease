@@ -12,12 +12,16 @@ import Alamofire
 /// Service to request the recipe API
 class RecipeService {
     
+    private let session: Session
     /// Parameters of the request
     var parameters = [String: Any]()
     /// Shared default object
     static let shared = RecipeService()
-    /// Restriction to one unique object
-    private init() {}
+    
+    /// Allows manual configuration of the session for object not shared
+    init(session: Session = .default) {
+        self.session = session
+    }
 }
 
 
@@ -34,7 +38,7 @@ extension RecipeService {
             "to": offset + Config.API.limit
         ]
         
-        AF.request(Config.API.url, parameters: parameters)
+        session.request(Config.API.url, parameters: parameters)
             .validate()
             .responseDecodable(of: SearchResult.self) { (response) in
                 callback(response.result)
