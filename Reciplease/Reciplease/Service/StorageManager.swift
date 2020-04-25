@@ -20,16 +20,10 @@ class StorageManager {
     let viewContext: NSManagedObjectContext
     
     /// Initializes an object with a custom persistent container
-    init(persistentContainer: NSPersistentContainer) {
+    init(persistentContainer: NSPersistentContainer = (UIApplication.shared.delegate as! AppDelegate).persistentContainer) {
         self.persistentContainer = persistentContainer
         self.persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
         self.viewContext = persistentContainer.viewContext
-    }
-    
-    /// Initializes an object with the default persistent container
-    convenience init() {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        self.init(persistentContainer: appDelegate.persistentContainer)
     }
     
     /// Loads all stored recipes

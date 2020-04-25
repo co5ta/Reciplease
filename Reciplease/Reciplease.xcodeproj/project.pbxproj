@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		224DDE77244BB91E00C9C904 /* RecipeEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2251931F244BB6CE00F4B401 /* RecipeEntity.swift */; };
 		2251930E2449A9D700F4B401 /* NetworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2251930D2449A9D700F4B401 /* NetworkTests.swift */; };
 		225193102449AC6100F4B401 /* URLProtocolMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2251930F2449AC6100F4B401 /* URLProtocolMock.swift */; };
 		22519317244B13B100F4B401 /* StorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22519316244B13B100F4B401 /* StorageTests.swift */; };
@@ -61,7 +60,6 @@
 		2251930F2449AC6100F4B401 /* URLProtocolMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLProtocolMock.swift; sourceTree = "<group>"; };
 		22519316244B13B100F4B401 /* StorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageTests.swift; sourceTree = "<group>"; };
 		22519318244B480F00F4B401 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
-		2251931F244BB6CE00F4B401 /* RecipeEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeEntity.swift; sourceTree = "<group>"; };
 		22536E8B241B843C00B15DC2 /* Reciplease.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Reciplease.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22536E8E241B843C00B15DC2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		22536E90241B843C00B15DC2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -207,8 +205,6 @@
 				2257190F2422521400B138EB /* SearchResult.swift */,
 				2257190D242233ED00B138EB /* Recipe.swift */,
 				22536E97241B843C00B15DC2 /* Reciplease.xcdatamodeld */,
-				2251931F244BB6CE00F4B401 /* RecipeEntity.swift */,
-				22519318244B480F00F4B401 /* StorageManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -217,6 +213,7 @@
 			isa = PBXGroup;
 			children = (
 				22577DBE24215B9500C997CE /* RecipeService.swift */,
+				22519318244B480F00F4B401 /* StorageManager.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -459,7 +456,6 @@
 				22805586243F31E30091412D /* Strings.swift in Sources */,
 				22536EA8241B870C00B15DC2 /* SearchNavigationController.swift in Sources */,
 				2253DB8C2427A6AE005C2612 /* RecipeTableViewCell.swift in Sources */,
-				224DDE77244BB91E00C9C904 /* RecipeEntity.swift in Sources */,
 				22536EAA241B874300B15DC2 /* FavoritesNavigationController.swift in Sources */,
 				22536E8F241B843C00B15DC2 /* AppDelegate.swift in Sources */,
 				2280558D243F5E0D0091412D /* UIAlertController+Alert.swift in Sources */,
