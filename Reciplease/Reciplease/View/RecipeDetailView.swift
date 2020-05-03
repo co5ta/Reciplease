@@ -58,7 +58,7 @@ extension RecipeDetailView {
         addSubview(ingredientsTitleLabel)
         ingredientsTitleLabel.font = UIFont.preferredFont(forTextStyle: .title3)
         ingredientsTitleLabel.adjustsFontForContentSizeCategory = true
-        ingredientsTitleLabel.text = "Ingredients:"
+        ingredientsTitleLabel.text = Strings.recipeIngredientsTitleLabel
         ingredientsTitleLabel.textColor = Config.globalTintColor
         setUpIngredientsTitleLabelConstraints()
     }
@@ -76,7 +76,7 @@ extension RecipeDetailView {
     /// Sets up the get directions button
     private func setUpGetDirectionsButton() {
         addSubview(getDirectionsButton)
-        getDirectionsButton.setTitle("Get directions", for: .normal)
+        getDirectionsButton.setTitle(Strings.getDirections, for: .normal)
         getDirectionsButton.titleLabel?.adjustsFontForContentSizeCategory = true
         getDirectionsButton.titleLabel?.adjustsFontSizeToFitWidth = true
         getDirectionsButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)

@@ -77,7 +77,7 @@ extension SearchFormView {
     /// Sets up the text field label
     private func setUpTextFieldLabel() {
         addSubview(textFieldLabel)
-        textFieldLabel.text = "What's in your fridge ?"
+        textFieldLabel.text = Strings.textFieldLabel
         textFieldLabel.numberOfLines = 0
         textFieldLabel.adjustsFontForContentSizeCategory = true
         textFieldLabel.font = UIFont.preferredFont(forTextStyle: .title1)
@@ -87,7 +87,7 @@ extension SearchFormView {
     /// Sets up the add button
     private func setUpAddButton() {
         addSubview(addButton)
-        addButton.setTitle("Add", for: .normal)
+        addButton.setTitle(Strings.add, for: .normal)
         addButton.tintColor = .white
         addButton.contentEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
         addButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
@@ -100,7 +100,7 @@ extension SearchFormView {
     /// Sets up the text field
     private func setUpTextField() {
         addSubview(textField)
-        textField.placeholder = "Lemon, Cheese, Sausages..."
+        textField.placeholder = Strings.textFieldPlaceholder
         setUpTextFieldConstraints()
     }
     
@@ -126,7 +126,7 @@ extension SearchFormView {
     /// Sets up the ingredients title
     private func setUpIngredientsTitle() {
         addSubview(ingredientsTitleLabel)
-        ingredientsTitleLabel.text = "Your ingredients"
+        ingredientsTitleLabel.text = Strings.userIngredientsTitleLabel
         ingredientsTitleLabel.numberOfLines = 0
         ingredientsTitleLabel.font = UIFont.preferredFont(forTextStyle: .title3)
         ingredientsTitleLabel.adjustsFontForContentSizeCategory = true
@@ -149,7 +149,7 @@ extension SearchFormView {
         addSubview(clearButton)
         clearButton.tintColor = .white
         clearButton.backgroundColor = UIColor.systemGray
-        clearButton.setTitle("Cancel", for: .normal)
+        clearButton.setTitle(Strings.cancel, for: .normal)
         clearButton.titleLabel?.adjustsFontForContentSizeCategory = true
         clearButton.titleLabel?.adjustsFontSizeToFitWidth = true
         clearButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
@@ -163,7 +163,7 @@ extension SearchFormView {
         addSubview(submitButton)
         submitButton.tintColor = .white
         submitButton.backgroundColor = Config.globalTintColor
-        submitButton.setTitle("Search", for: .normal)
+        submitButton.setTitle(Strings.search, for: .normal)
         submitButton.titleLabel?.adjustsFontForContentSizeCategory = true
         submitButton.titleLabel?.adjustsFontSizeToFitWidth = true
         submitButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)

@@ -116,7 +116,9 @@ extension RecipeDetailViewController {
         let action = isFavorite ? deleteFromFavorites : addToFavorites
         do { try action() }
         catch let error {
-            let alert = UIAlertController.plainAlert(title: "Error", message: error.localizedDescription)
+            let alert = UIAlertController.plainAlert(
+                title: Strings.errorTitle,
+                message: error.localizedDescription)
             present(alert, animated: true)
         }
         isFavorite.toggle()

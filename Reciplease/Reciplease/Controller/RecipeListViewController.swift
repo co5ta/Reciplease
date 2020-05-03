@@ -168,7 +168,7 @@ extension RecipeListViewController {
     /// Sets up the loading label
     private func setUpLoadingLabel() {
         view.addSubview(loadingLabel)
-        loadingLabel.text = "... loading ..."
+        loadingLabel.text = Strings.loadingLabel
         loadingLabel.textColor = .secondaryLabel
         loadingLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
         loadingLabel.isHidden = true

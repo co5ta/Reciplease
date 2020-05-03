@@ -26,7 +26,7 @@ class FavoritesNavigationController: UINavigationController {
         do { try Recipe.favorites = CoreDataService.shared.loadRecipes() }
         catch let error {
             let alert = UIAlertController.plainAlert(
-                title: "Error",
+                title: Strings.errorTitle,
                 message: error.localizedDescription)
             present(alert, animated: true)
         }

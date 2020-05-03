@@ -42,7 +42,7 @@ extension SearchFormViewController {
     
     /// Sets up default properties of the controller
     private func setUpDefaultProperties() {
-        navigationItem.title = "Reciplease"
+        navigationItem.title = Strings.appTitle
         let button = UIBarButtonItem(title: "", style: .plain,target: nil, action: nil)
         navigationItem.backBarButtonItem = button
         view.backgroundColor = .systemBackground
