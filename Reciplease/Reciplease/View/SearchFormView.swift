@@ -148,7 +148,7 @@ extension SearchFormView {
     private func setUpClearButton() {
         addSubview(clearButton)
         clearButton.tintColor = .white
-        clearButton.backgroundColor = Config.cancelButtonColor
+        clearButton.backgroundColor = UIColor.systemGray
         clearButton.setTitle("Cancel", for: .normal)
         clearButton.titleLabel?.adjustsFontForContentSizeCategory = true
         clearButton.titleLabel?.adjustsFontSizeToFitWidth = true
