@@ -14,7 +14,7 @@ import XCTest
 class NetworkTests: XCTestCase {
     
     /// Objetcs which do the request
-    var recipeService: RecipeService!
+    var networkService: NetworkService!
     /// Object which creates and manages Alamofire’s Request types during their lifetimes
     var session: Session!
     
@@ -23,7 +23,7 @@ class NetworkTests: XCTestCase {
         let configuration = URLSessionConfiguration.default
         configuration.protocolClasses = [URLProtocolMock.self]
         session = Session(configuration: configuration)
-        recipeService = RecipeService(session: session)
+        networkService = NetworkService(session: session)
     }
     
     /// Tests the reception of good data
@@ -31,7 +31,7 @@ class NetworkTests: XCTestCase {
         let expectedResult = FakeData.recipes
         let expectation = XCTestExpectation(description: "Wait for queue change")
         
-        recipeService.getRecipes(ingredients: "jsonGood", offset: 0) { (result) in
+        networkService.getRecipes(ingredients: "jsonGood", offset: 0) { (result) in
             switch result {
             case .failure(let error):
                 XCTAssertEqual(error.debugDescription, "")
@@ -47,7 +47,7 @@ class NetworkTests: XCTestCase {
     func testRecipesFetchingBadJson() {
         let expectation = XCTestExpectation(description: "Wait for queue change")
         
-        recipeService.getRecipes(ingredients: "jsonBad", offset: 0) { (result) in
+        networkService.getRecipes(ingredients: "jsonBad", offset: 0) { (result) in
             switch result {
             case .failure(let error):
                 XCTAssertNotNil(error.debugDescription.contains("The given data was not valid JSON"))

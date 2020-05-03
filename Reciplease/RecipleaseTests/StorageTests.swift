@@ -23,7 +23,7 @@ class StorageTests: XCTestCase {
     }()
     
     /// The store manager configured for tests
-    let storageManager: StorageManager = {
+    let coreDataService: CoreDataService = {
         let description = NSPersistentStoreDescription()
         description.type = NSInMemoryStoreType
         description.shouldAddStoreAsynchronously = false
@@ -33,7 +33,7 @@ class StorageTests: XCTestCase {
             precondition( description.type == NSInMemoryStoreType )
             if let error = error { fatalError("In memory coordinator creation failed \(error)") }
         }
-        return StorageManager(persistentContainer: container)
+        return CoreDataService(persistentContainer: container)
     }()
     
     /// Tests the saving and loading of recipes
@@ -41,11 +41,11 @@ class StorageTests: XCTestCase {
         // Saving
         let recipes = FakeData.recipes
         recipes.forEach {
-            do { try storageManager.save(recipe: $0) }
+            do { try coreDataService.save(recipe: $0) }
             catch (let error) { XCTFail(error.localizedDescription) }
         }
         // Loading
-        do { rows = try storageManager.loadRecipes() }
+        do { rows = try coreDataService.loadRecipes() }
         catch (let error) { XCTFail(error.localizedDescription) }
         // Test
         XCTAssertEqual(recipes, rows)
@@ -56,16 +56,16 @@ class StorageTests: XCTestCase {
         // Saving
         let recipes = FakeData.recipes
         recipes.forEach {
-            do { try storageManager.save(recipe: $0) }
+            do { try coreDataService.save(recipe: $0) }
             catch (let error) { XCTFail(error.localizedDescription) }
         }
         // Deleting
         let random = Int.random(in: 0..<recipes.count)
         let recipeToDelete = recipes[random]
-        do { try storageManager.delete(recipe: recipeToDelete) }
+        do { try coreDataService.delete(recipe: recipeToDelete) }
         catch (let error) { XCTFail(error.localizedDescription) }
         // Loading
-        do { rows = try storageManager.loadRecipes() }
+        do { rows = try coreDataService.loadRecipes() }
         catch (let error) { XCTFail(error.localizedDescription) }
         // Test
         XCTAssertEqual(rows.count, recipes.count - 1)

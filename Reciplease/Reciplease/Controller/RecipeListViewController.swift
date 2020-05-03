@@ -290,7 +290,7 @@ extension RecipeListViewController {
     /// Asks to receive recipes from API
     private func getRecipesFromAPI() {
         guard let ingredients = ingredients else { return }
-        RecipeService.shared.getRecipes(ingredients: ingredients, offset: offset) { [weak self] (result) in
+        NetworkService.shared.getRecipes(ingredients: ingredients, offset: offset) { [weak self] (result) in
             switch(result) {
             case .success(let searchResult):
                 self?.handleSuccess(result: searchResult)
@@ -306,12 +306,8 @@ extension RecipeListViewController {
         let indexPaths = (offset..<recipes.count).map { IndexPath(row: $0, section: 0)}
         tableView.insertRows(at: indexPaths, with: .bottom)
         offset = recipes.count
-        if recipes.isEmpty {
-            noMoreResults = true
-            state = .empty(mode: mode)
-        } else {
-            state = .ready
-        }
+        if searchResult.recipes.isEmpty { noMoreResults = true }
+        state = recipes.isEmpty ? .empty(mode: mode) : .ready
     }
     
     /// Handles a failure result after a request

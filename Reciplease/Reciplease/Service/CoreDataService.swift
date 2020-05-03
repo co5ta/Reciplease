@@ -1,5 +1,5 @@
 //
-//  StorageManager.swift
+//  CoreDataService.swift
 //  Reciplease
 //
 //  Created by co5ta on 18/04/2020.
@@ -10,10 +10,10 @@ import UIKit
 import CoreData
 
 /// Manager of the data storage
-class StorageManager {
+class CoreDataService {
     
     /// Default instance of the class
-    static let shared = StorageManager()
+    static let shared = CoreDataService()
     /// Container that encapsulates the Core Data stack
     let persistentContainer: NSPersistentContainer
     /// Managed object context associated with the main queue

@@ -127,7 +127,7 @@ extension RecipeDetailViewController {
     /// Adds the recipe to the favorites
     private func addToFavorites() throws {
         guard let recipe = recipe else { return }
-        do { try StorageManager.shared.save(recipe: recipe) }
+        do { try CoreDataService.shared.save(recipe: recipe) }
         catch let error { throw error }
         Recipe.favorites.append(recipe)
     }
@@ -135,7 +135,7 @@ extension RecipeDetailViewController {
     /// Removes the recipe from the favorites
     private func deleteFromFavorites() throws {
         guard let recipe = recipe else { return }
-        do { try StorageManager.shared.delete(recipe: recipe) }
+        do { try CoreDataService.shared.delete(recipe: recipe) }
         catch let error { throw error }
         Recipe.favorites = Recipe.favorites.filter({ $0 != recipe })
     }

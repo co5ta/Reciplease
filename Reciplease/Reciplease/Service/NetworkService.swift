@@ -1,5 +1,5 @@
 //
-//  RecipeService.swift
+//  NetworkService.swift
 //  Reciplease
 //
 //  Created by co5ta on 17/03/2020.
@@ -10,13 +10,13 @@ import Foundation
 import Alamofire
 
 /// Service to request the recipe API
-class RecipeService {
+class NetworkService {
     
     private let session: Session
     /// Parameters of the request
     var parameters = [String: Any]()
     /// Shared default object
-    static let shared = RecipeService()
+    static let shared = NetworkService()
     
     /// Allows manual configuration of the session for object not shared
     init(session: Session = .default) {
@@ -26,7 +26,7 @@ class RecipeService {
 
 
 // MARK: - Methods
-extension RecipeService {
+extension NetworkService {
     
     /// Request the API to find some recipes
     func getRecipes(ingredients: String, offset: Int, callback: @escaping (Result<SearchResult, AFError>)-> Void) {

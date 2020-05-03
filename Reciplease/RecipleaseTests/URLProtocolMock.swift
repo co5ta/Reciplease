@@ -42,12 +42,10 @@ class URLProtocolMock: URLProtocol {
     
     /// Starts protocol-specific loading of the request.
     override func startLoading() {
-        print(request.url!)
-        guard let response = URLProtocolMock.testURLs[request.url!]
-            else {
-                self.client?.urlProtocol(self, didFailWithError: AFError.invalidURL(url: request.url!))
-                return
-            }
+        guard let response = URLProtocolMock.testURLs[request.url!] else {
+            self.client?.urlProtocol(self, didFailWithError: AFError.invalidURL(url: request.url!))
+            return
+        }
         
         switch response {
         case .failure(let error):
