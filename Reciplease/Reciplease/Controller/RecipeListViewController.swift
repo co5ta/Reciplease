@@ -147,6 +147,8 @@ extension RecipeListViewController {
         callbackLabel.font = UIFont.preferredFont(forTextStyle: .headline)
         callbackLabel.textColor = .secondaryLabel
         callbackLabel.numberOfLines = 0
+        callbackLabel.adjustsFontForContentSizeCategory = true
+        callbackLabel.adjustsFontSizeToFitWidth = true
         callbackLabel.textAlignment = .center
     }
     
@@ -155,6 +157,7 @@ extension RecipeListViewController {
         view.addSubview(callbackStackView)
         callbackStackView.axis = .vertical
         callbackStackView.alignment = .center
+        callbackStackView.distribution = .fill
         setUpCallbackStackViewConstraints()
     }
     
@@ -194,13 +197,19 @@ extension RecipeListViewController {
     private func setUpCallbackStackViewConstraints() {
         callbackStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            callbackStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            callbackStackView.widthAnchor.constraint(
-                equalTo: view.readableContentGuide.widthAnchor,
-                multiplier: 0.8),
             callbackStackView.topAnchor.constraint(
                 equalTo: view.safeAreaLayoutGuide.topAnchor,
-                constant: view.frame.height/5)
+//                constant: view.frame.height * 0.5),
+                constant: view.safeAreaLayoutGuide.layoutFrame.height * 0.1),
+            callbackStackView.leadingAnchor.constraint(
+                equalToSystemSpacingAfter: view.safeAreaLayoutGuide.leadingAnchor,
+                multiplier: 3),
+            view.safeAreaLayoutGuide.trailingAnchor.constraint(
+                equalToSystemSpacingAfter: callbackStackView.trailingAnchor,
+                multiplier: 3),
+            view.safeAreaLayoutGuide.bottomAnchor.constraint(
+                greaterThanOrEqualToSystemSpacingBelow: callbackStackView.bottomAnchor,
+                multiplier: 2)
         ])
     }
     
