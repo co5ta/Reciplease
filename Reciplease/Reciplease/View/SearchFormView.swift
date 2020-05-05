@@ -92,6 +92,7 @@ extension SearchFormView {
         addButton.contentEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
         addButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
         addButton.titleLabel?.adjustsFontForContentSizeCategory = true
+        addButton.titleLabel?.textAlignment = .center
         addButton.backgroundColor = Config.globalTintColor
         addButton.layer.cornerRadius = 5
         setUpAddButtonConstraints()
